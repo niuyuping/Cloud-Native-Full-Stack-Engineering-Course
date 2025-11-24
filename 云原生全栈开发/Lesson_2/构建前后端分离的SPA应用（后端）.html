@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>构建前后端分离的SPA应用</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>构建前后端分离的SPA应用（后端）</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7526,10 +7526,31 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<style>
+    .terminal-span {
+        margin: 0 0.1rem !important; 
+        padding: 0.1rem 0.2rem !important; 
+        background-color: #d3e3fd !important;
+        color: black !important;
+        border-radius: 0.25rem !important;
+    }
+    .terminal-div {
+        padding: 1rem; 
+        background-color: #d3e3fd; 
+        color: black; 
+        width: 40rem; 
+        margin-bottom: 1rem; 
+        border-radius: 0.25rem; 
+        margin-left: 1rem; 
+    }
+</style>
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E7%9B%AE%E6%A0%87">目标<a class="anchor-link" href="#%E7%9B%AE%E6%A0%87">¶</a></h2></div>
 <ul>
-<li>将上节课完成的原型进行前后端分离，将保险、税率相关的敏感数据和算法分离到后端服务中，前端服务仅专注于交互功能的实现。</li>
+<li><p>将上节课完成的<span class="terminal-span">保险计算器</span>重构为前后端分离的现代化SPA应用。我们会将保险率率、税率等敏感数据和算法分离到后端服务中，前端服务则仅专注于交互功能的实现。</p>
+</li>
+<li><p>本节课中，我们将会构建系统中的第一个<span class="terminal-span">后端服务</span>。</p>
+</li>
 </ul>
 </div>
 </div>
@@ -7571,8 +7592,8 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E6%9E%B6%E6%9E%84%E5%9B%BE">架构图<a class="anchor-link" href="#%E6%9E%B6%E6%9E%84%E5%9B%BE">¶</a></h2></div>
-<img alt="Social Insurance Query System" src="./Assets/Social Insurance Query System 2.svg" style="max-width: 100%; margin-left: 25px; padding: 50px; background-color: white"/>
+<h2 id="%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE">系统架构图<a class="anchor-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE">¶</a></h2></div>
+<img alt="Social Insurance Query System" src="./Assets/Social Insurance Query System.jpg" style="max-width: 100%; margin-left: 25px; padding: 50px; background-color: white"/>
 </div>
 </div>
 </div>
@@ -7582,13 +7603,36 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<style>
+    .terminal-span {
+        margin: 0 0.1rem !important; 
+        padding: 0.1rem 0.2rem !important; 
+        background-color: #d3e3fd !important;
+        color: black !important;
+        border-radius: 0.25rem !important;
+    }
+    .terminal-div {
+        padding: 1rem; 
+        background-color: #d3e3fd; 
+        color: black; 
+        width: 40rem; 
+        margin-bottom: 1rem; 
+        border-radius: 0.25rem; 
+        margin-left: 1rem; 
+    }
+</style>
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">搭建本地开发环境<a class="anchor-link" href="#%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">¶</a></h2></div>
+<ul>
+<li><h4 id="Docker-Desktop%E7%9A%84%E6%9E%B6%E6%9E%84%E5%9B%BE">Docker Desktop的架构图<a class="anchor-link" href="#Docker-Desktop%E7%9A%84%E6%9E%B6%E6%9E%84%E5%9B%BE">¶</a></h4> <img alt="Social Insurance Query System" src="./Assets/docker-postgres.jpg" style="max-width: 100%; margin-left: 25px; padding: 50px; background-color: white"/>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
 <ul>
 <li><h4 id="%E5%9C%A8Docker-Desktop%E4%B8%AD%E5%88%9B%E5%BB%BAPostgreSQL%E5%AE%B9%E5%99%A8">在Docker Desktop中创建PostgreSQL容器<a class="anchor-link" href="#%E5%9C%A8Docker-Desktop%E4%B8%AD%E5%88%9B%E5%BB%BAPostgreSQL%E5%AE%B9%E5%99%A8">¶</a></h4><ul>
 <li><p>① 下载并安装Docker Desktop -<a href="https://www.docker.com">https://www.docker.com</a></p>
 </li>
-<li><p>② 运行<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">终端</span>应用程序（Windows 10中运行<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">超级终端</span>应用程序）</p>
+<li><p>② 运行<span class="terminal-span">终端</span>应用程序（Windows 10中运行<span class="terminal-span">超级终端</span>应用程序）</p>
 </li>
 <li><p>③ 在终端里输入并按下回车:</p>
 <ul>
@@ -7608,18 +7652,18 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 </span></em></li>
 </ul>
 <div style="margin-bottom: 1rem; margin-left: 1rem; padding-top: 1rem">
-<p>※ 挑战：<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">psql</span>是一个独立的命令行工具，如果你的系统中还没有安装它，请搜索相关资料并完成安装。</p>
+<p>※ 挑战：<span class="terminal-span">psql</span>是一个独立的命令行工具，如果你的系统中还没有安装它，请搜索相关资料并完成安装。</p>
 </div>
 </li>
 <li><p>② 终端窗口里会显示：</p>
-<div style="padding: 1rem; background-color: #d3e3fd; color: black; width: 40rem; margin-bottom: 1rem; border-radius: 0.25rem; margin-left: 1rem; ">
+<div class="terminal-div">
       Password for user db_user:  
   </div>
 </li>
 <li><p>③ 输入密码 <em><span style="color: orange">local</span></em>，然后按下回车。</p>
 </li>
 <li><p>④ 如果连接成功，你将看到psql的提示符，证明数据库已成功创建并可访问：
-<div style="padding: 1rem; background-color: #d3e3fd; color: black; width: 40rem; margin-bottom: 10px; border-radius: 5px; margin-left: 1rem;">
+<div class="terminal-div">
 <div>psql (版本信息)</div>
 <div>Type "help" for help.</div>
 <div style="margin-top: 1rem">social_insurance=#</div>
@@ -7628,22 +7672,24 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
-<li><h4 id="%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">搭建开发环境<a class="anchor-link" href="#%E6%90%AD%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">¶</a></h4><ul>
+<li><h4 id="%E9%85%8D%E7%BD%AE%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88IDE%EF%BC%89">配置集成开发环境（IDE）<a class="anchor-link" href="#%E9%85%8D%E7%BD%AE%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88IDE%EF%BC%89">¶</a></h4><ul>
 <li><p>① 下载并安装Cursor - <a href="https://www.cursor.com">https://www.cursor.com</a>，这是我们在本课程中主要使用的集成开发环境。</p>
 </li>
-<li><p>② 在Cursor中安装<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">Extension Pack For Java</span>插件</p>
+<li><p>② 在Cursor中安装<span class="terminal-span">Extension Pack For Java</span>插件</p>
 </li>
-<li><p>③ 在Cursor中安装<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">Spring Boot Extension Pack</span>插件</p>
+<li><p>③ 在Cursor中安装<span class="terminal-span">Spring Boot Extension Pack</span>插件</p>
 </li>
-<li><p>④ 在Cursor中安装<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">TypeScript</span>插件</p>
+<li><p>④ 在Cursor中安装<span class="terminal-span">TypeScript</span>插件</p>
 </li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
 <li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
-<li><p>我们默认使用操作系统自带的终端应用进行命令行操作，但你也可以使用其它命令行工具，如<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">Bash</span>或<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">Zsh</span>，它们提供了一些增强特性。如果你有兴趣，可以尝试在系统中安装并使用它们。</p>
+<li><p><span class="terminal-span">Docker</span>是<span class="terminal-span">容器</span>(Container)的一种实现，它提供了标准化、轻量级隔离和环境一致性，极大地提高了软件从开发到部署的效率和可靠性。</p>
 </li>
-<li><p>在本课程中，我们使用Cursor做为基础教学工具，它的AI智能体（AI Agents）使我们的课程得以更高效的进行，可以令学习者更快速的掌握架构和全栈开发知识。Cursor是收费工具，目前的定价是20美元/月。</p>
+<li><p>我们默认使用操作系统自带的终端应用进行命令行操作，但你也可以使用其它命令行工具，如<span class="terminal-span">Bash</span>或<span class="terminal-span">Zsh</span>，它们提供了一些增强特性。如果你有兴趣，可以尝试在系统中安装并使用它们。</p>
+</li>
+<li><p>在本课程中，我们使用<span class="terminal-span">Cursor</span>做为基础教学工具，它的AI智能体（AI Agents）使我们的课程得以更高效的进行，可以令学习者更快速的掌握架构和全栈开发知识。Cursor是收费工具，目前的定价是20美元/月。</p>
 </li>
 </ul>
 </li>
@@ -7657,11 +7703,32 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<style>
+    .terminal-span {
+        margin: 0 0.1rem !important; 
+        padding: 0.1rem 0.2rem !important; 
+        background-color: #d3e3fd !important;
+        color: black !important;
+        border-radius: 0.25rem !important;
+    }
+    .terminal-div {
+        padding: 1rem; 
+        background-color: #d3e3fd; 
+        color: black; 
+        width: 40rem; 
+        margin-bottom: 1rem; 
+        border-radius: 0.25rem; 
+        margin-left: 1rem; 
+    }
+</style>
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E5%BC%80%E5%8F%91%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">开发后端服务<a class="anchor-link" href="#%E5%BC%80%E5%8F%91%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h2></div>
+<h2 id="%E6%9E%84%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">构建后端服务<a class="anchor-link" href="#%E6%9E%84%E5%BB%BA%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h2></div>
 <ul>
+<li><h4 id="WebFlux%E4%B8%8E%E4%BC%A0%E7%BB%9FMVC%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94">WebFlux与传统MVC架构对比<a class="anchor-link" href="#WebFlux%E4%B8%8E%E4%BC%A0%E7%BB%9FMVC%E6%9E%B6%E6%9E%84%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="./Assets/flux_vs_mvc.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
+</li>
 <li><h4 id="%E5%88%9B%E5%BB%BASocial-Insurance%E9%A1%B9%E7%9B%AE">创建Social Insurance项目<a class="anchor-link" href="#%E5%88%9B%E5%BB%BASocial-Insurance%E9%A1%B9%E7%9B%AE">¶</a></h4><ul>
-<li><p>① 在Cursor首页按下<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">Shift + Command + P</span>(MacOS)或<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">Shift + Ctrl + P </span>(Windows)</p>
+<li><p>① 在Cursor首页按下<span class="terminal-span">Shift + Command + P</span>(MacOS)或<span class="terminal-span">Shift + Ctrl + P </span>(Windows)</p>
 </li>
 <li><p>② 输入 <em><span style="color: orange">Spring Initializr: Create a Gradle Project</span></em></p>
 </li>
@@ -7682,20 +7749,38 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 </li>
 </ul>
 </li>
+<li><h4 id="Flyway%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B%E5%9B%BE">Flyway数据库迁移流程图<a class="anchor-link" href="#Flyway%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB%E6%B5%81%E7%A8%8B%E5%9B%BE">¶</a></h4><img alt="Social Insurance Query System" src="./Assets/flyway.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
+</li>
 <li><h4 id="%E5%88%9B%E5%BB%BAFlyway%E8%BF%81%E7%A7%BB%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6">创建Flyway迁移脚本文件<a class="anchor-link" href="#%E5%88%9B%E5%BB%BAFlyway%E8%BF%81%E7%A7%BB%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6">¶</a></h4><ul>
-<li>将数据库脚本文件 <a href="../References/V1__init_premium_bracket_table.sql" target="_blank">V1__init_premium_bracket_table.sql</a> 复制到目录 <span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">{root}/src/main/resources/db/migration</span> 下。</li>
+<li>将数据库脚本文件 <a href="../References/V1__init_premium_bracket_table.sql" target="_blank">V1__init_premium_bracket_table.sql</a> 复制到目录 <span class="terminal-span">{root}/src/main/resources/db/migration</span> 下。</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
 <li><h4 id="%E5%88%9B%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">创建开发环境配置文件<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">¶</a></h4><ul>
-<li>将配置文件 <a href="../References/application-dev.properties" target="_blank">application-dev.properties</a> 复制到目录 <span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">{root}/src/main/resources</span> 下。</li>
+<li>将配置文件 <a href="../References/application-dev.properties" target="_blank">application-dev.properties</a> 复制到目录 <span class="terminal-span">{root}/src/main/resources</span> 下。</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
-<li><h4 id="%E5%88%9B%E5%BB%BA%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B1%82%EF%BC%88Infrastructure%EF%BC%89">创建基础设施层（Infrastructure）<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B1%82%EF%BC%88Infrastructure%EF%BC%89">¶</a></h4><ul>
-<li><p>在Cursor的Chat(Agent模式)中输入: <em><span style="color: orange">请根据我的Flyway迁移脚本V1__init_premium_bracket_table.sql为我创建对应的实体</span></em></p>
+<li><h4 id="%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E6%9E%B6%E6%9E%84%E5%9B%BE">领域驱动设计架构图<a class="anchor-link" href="#%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1%E6%9E%B6%E6%9E%84%E5%9B%BE">¶</a></h4> <img alt="Social Insurance Query System" src="./Assets/ddd.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
 </li>
-<li><p>在Cursor的Chat(Agent模式)中输入: <em><span style="color: orange">请根据我的实体为我创建Repository的接口和实现</span></em></p>
+<li><h4 id="%E5%88%9B%E5%BB%BA%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B1%82%EF%BC%88Infrastructure%EF%BC%89">创建基础设施层（Infrastructure）<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%B1%82%EF%BC%88Infrastructure%EF%BC%89">¶</a></h4><ul>
+<li><p>首先，在Cursor的Chat(Agent模式)中输入:</p>
+<ul>
+<li><span style="color: orange">
+<p><em>请根据我的Flyway迁移脚本V1__init_premium_bracket_table.sql为我创建对应的实体。我使用了WebFlux架构，请采用流式编程风格。</em></p>
+</span></li>
+</ul>
+
+</li>
+<li><p>然后，在Cursor的Chat(Agent模式)中输入:</p>
+<ul>
+<li><span style="color: orange">
+<p><em>请根据我的实体为我创建Repository的接口和实现。我使用了WebFlux架构，请采用流式编程风格。</em></p>
+</span></li>
+</ul>
+
 </li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
@@ -7704,7 +7789,7 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <li><p>在Cursor的Chat(Agent模式)中输入:</p>
 <ul>
 <li><span style="color: orange">
-<p><em>请为我创建Domain层，除基本的CRUD方法外，还需要一个查询社会保险金额的方法（方法名为：socialInsuranceQuery），输入月薪（参数名：monthlySalary）和年龄（参数名：age），输出一个DTO（类名：SocialInsuranceDomainDto），DTO中包含无介护健康保险金额（字段名：healthCostWithNoCare）、介护保险金额（字段名：careCost）、厚生年金金额（字段名：pension），共三个字段。如果年龄小于40岁则介护保险金额为0，如果大于等于40岁，介护保险金额 = 有介护健康保险金额 - 无介护健康保险金额。</em></p>
+<p><em>请为我创建Domain层，除基本的CRUD方法外，还需要一个查询社会保险金额的方法（方法名为：socialInsuranceQuery），输入月薪（参数名：monthlySalary）和年龄（参数名：age），输出一个DTO（类名：SocialInsuranceDomainDto），DTO中包含无介护健康保险金额（字段名：healthCostWithNoCare）、介护保险金额（字段名：careCost）、厚生年金金额（字段名：pension），共三个字段。如果年龄小于40岁则介护保险金额为0，如果大于等于40岁，介护保险金额 = 有介护健康保险金额 - 无介护健康保险金额。我使用了WebFlux架构，请采用流式编程风格。</em></p>
 </span></li>
 </ul>
 
@@ -7716,7 +7801,7 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <li><p>在Cursor的Chat(Agent模式)中输入:</p>
 <ul>
 <li><span style="color: orange">
-<p><em>请为我创建Application层，不需要CRUD方法，只需要一个查询社会保险金额的方法（方法名为：socialInsuranceQuery），输入月薪（参数名：monthlySalary）和年龄（参数名：age），输出一个DTO（类名：SocialInsuranceApplicationDto），DTO中包含无介护健康保险金额（字段名：healthCostWithNoCare）、介护保险金额（字段名：careCost）、厚生年金金额（字段名：pension），共三个字段。调用Domain层的同名方法来获取数据。</em></p>
+<p><em>请为我创建Application层，不需要CRUD方法，只需要一个查询社会保险金额的方法（方法名为：socialInsuranceQuery），输入月薪（参数名：monthlySalary）和年龄（参数名：age），输出一个DTO（类名：SocialInsuranceApplicationDto），DTO中包含无介护健康保险金额（字段名：healthCostWithNoCare）、介护保险金额（字段名：careCost）、厚生年金金额（字段名：pension），共三个字段。调用Domain层的同名方法来获取数据。我使用了WebFlux架构，请采用流式编程风格。</em></p>
 </span></li>
 </ul>
 
@@ -7728,7 +7813,7 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <li><p>在Cursor的Chat(Agent模式)中输入:</p>
 <ul>
 <li><span style="color: orange">
-<p><em>请为我创建Controller层，root端点为“/”，不需要CRUD方法，只暴露一个查询社会保险金额的get端点（端点路由:“/socialInsuranceQuery”），映射到与端点同名的方法上（方法名为：socialInsuranceQuery），输入月薪（参数名：monthlySalary）和年龄（参数名：age），输出一个DTO（类名：SocialInsuranceDto），DTO中包含无介护健康保险金额（字段名：healthCostWithNoCare）、介护保险金额（字段名：careCost）、厚生年金金额（字段名：pension），共三个字段。调用Application层的同名方法来获取数据。</em></p>
+<p><em>请为我创建Controller层，root端点为“/”，不需要CRUD方法，只暴露一个查询社会保险金额的get端点（端点路由:“/socialInsuranceQuery”），映射到与端点同名的方法上（方法名为：socialInsuranceQuery），输入月薪（参数名：monthlySalary）和年龄（参数名：age），输出一个DTO（类名：SocialInsuranceDto），DTO中包含无介护健康保险金额（字段名：healthCostWithNoCare）、介护保险金额（字段名：careCost）、厚生年金金额（字段名：pension），共三个字段。调用Application层的同名方法来获取数据。我使用了WebFlux架构，请采用流式编程风格。</em></p>
 </span></li>
 </ul>
 
@@ -7739,7 +7824,7 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <div style="margin-bottom: 1rem"></div>
 <ul>
 <li><h4 id="%E5%9C%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1">在开发环境下运行服务<a class="anchor-link" href="#%E5%9C%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1">¶</a></h4><ul>
-<li><p>在Cursor的<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">终端</span>窗口里输入并按下回车:</p>
+<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并按下回车:</p>
 <ul>
 <li><em><span style="color: orange">
 ./gradlew bootRun --args='--spring.profiles.active=dev'
@@ -7752,15 +7837,144 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <div style="margin-bottom: 1rem"></div>
 <ul>
 <li><h4 id="%E4%BD%BF%E7%94%A8Httpie%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">使用Httpie进行测试<a class="anchor-link" href="#%E4%BD%BF%E7%94%A8Httpie%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">¶</a></h4><ul>
-<li><p>在Cursor的<span style="margin: 0 0.1rem; padding: 0.1rem 0.2rem; background-color: #d3e3fd; color: black;border-radius: 0.25rem;">终端</span>窗口里输入并按下回车:</p>
+<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并按下回车:</p>
 <ul>
 <li><em><span style="color: orange">
 http :9002/socialInsuranceQuery monthSalary==300000 age==45
 </span></em></li>
 </ul>
+<div style="margin-bottom: 1rem; margin-left: 1rem; padding-top: 1rem">
+<p>※ 挑战：<span class="terminal-span">Httpie</span>是一个独立的命令行工具，如果你的系统中还没有安装它，请搜索相关资料并完成安装。</p>
+<div style="margin-bottom: 1rem"></div>
+</div></li>
+</ul>
+</li>
+<li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
+<li><p>我们的目标是逐步学习构建一个<span class="terminal-span">百万用户级</span>的分布式微服务系统所需的各种知识和技能。为达到这个目标，必须以<span class="terminal-span">可控的方式</span>使用AI，在架构、安全性、关键技术、输入输出、业务流程等方面进行精细控制，否则随着系统规模的扩大，可能引发灾难性的架构缺陷、安全漏洞和运维噩梦，最终导致项目失败。</p>
+</li>
+<li><p>Spring架构中深度集成了对<span class="terminal-span">Flyway</span>的支持，将数据库 Schema 的管理从易出错的手动流程，转变为可靠、自动化、可重复的软件工程实践的一部分。</p>
+</li>
+<li><p>我们在构建后端服务时使用了<span class="terminal-span">领域驱动设计</span>（Domain-Driven Design, DDD）的核心思想和原则，将服务划分为基础设施层（Infrastructure Layer）、领域服务层（Domain Service Layer）、应用服务层（Application Service Layer）、控制器层（Controller Layer）。</p>
+</li>
+<li><p><span class="terminal-span">Spring Reactive Web</span>提供了对<span class="terminal-span">WebFlux</span>的支持，旨在提供一个完全非阻塞（non-blocking）和基于响应式流（Reactive Streams）的 Web 框架，与传统的基于 Servlet 的 Spring Web MVC 形成对比。除了一些开箱即用的功能外，它对我们的编程方式也提出了更高要求，流式编程是最适合响应式架构的编程方式。这需要开发者从“如何一步步获取数据”转变为“如何描述数据流动的规则”，对思维方式提出了更高的要求。</p>
 </li>
 </ul>
 </li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17a2eb63">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<style>
+    .terminal-span {
+        margin: 0 0.1rem !important; 
+        padding: 0.1rem 0.2rem !important; 
+        background-color: #d3e3fd !important;
+        color: black !important;
+        border-radius: 0.25rem !important;
+    }
+    .terminal-div {
+        padding: 1rem; 
+        background-color: #d3e3fd; 
+        color: black; 
+        width: 40rem; 
+        margin-bottom: 1rem; 
+        border-radius: 0.25rem; 
+        margin-left: 1rem; 
+    }
+</style>
+<div style="border-left: 5px solid #007bff; padding-left: 15px;">
+<h2 id="%E8%BF%AD%E4%BB%A3%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">迭代后端服务<a class="anchor-link" href="#%E8%BF%AD%E4%BB%A3%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h2></div>
+<ul>
+<li><h4 id="%E4%BC%98%E5%8C%96%E9%A2%86%E5%9F%9F%E5%B1%82%EF%BC%88Domain%EF%BC%89">优化领域层（Domain）<a class="anchor-link" href="#%E4%BC%98%E5%8C%96%E9%A2%86%E5%9F%9F%E5%B1%82%EF%BC%88Domain%EF%BC%89">¶</a></h4><ul>
+<li><p>在Cursor的Chat(Agent模式)中输入:</p>
+<ul>
+<li><span style="color: orange">
+<p><em>健康保险、介护保险、厚生年金的花费由雇员（employee）和雇主（employer）双方各承担50%，请修改SocialInsuranceDomainDto的定义，包含employeeCost和employerCost两个结构体，每结构体都包含healthCostWithNoCard、careCost、pension三个字段，分别保存雇员和雇主所承担的各项费用金额。请注意，仅修改领域层相关的数据结构和算法，不要修改其它代码。我使用了WebFlux架构，请采用流式编程风格。</em></p>
+</span></li>
+</ul>
+
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E4%BC%98%E5%8C%96%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%88Application%EF%BC%89">优化应用层（Application）<a class="anchor-link" href="#%E4%BC%98%E5%8C%96%E5%BA%94%E7%94%A8%E5%B1%82%EF%BC%88Application%EF%BC%89">¶</a></h4><ul>
+<li><p>在Cursor的Chat(Agent模式)中输入:</p>
+<ul>
+<li><span style="color: orange">
+<p><em>请修改SocialInsuranceApplicationDto的定义，包含employeeCost和employerCost两个结构体，每结构体都包含healthCostWithNoCard、careCost、pension三个字段，分别保存雇员和雇主所承担的各项费用金额。请注意，仅修改应用层相关的数据结构和算法，不要修改其它代码。我使用了WebFlux架构，请采用流式编程风格。</em></p>
+</span></li>
+</ul>
+
+<div style="margin-bottom: 1rem"></div>
+</li>
+</ul>
+</li>
+<li><h4 id="%E4%BC%98%E5%8C%96%E6%8E%A7%E5%88%B6%E5%99%A8%E5%B1%82%EF%BC%88Controller%EF%BC%89">优化控制器层（Controller）<a class="anchor-link" href="#%E4%BC%98%E5%8C%96%E6%8E%A7%E5%88%B6%E5%99%A8%E5%B1%82%EF%BC%88Controller%EF%BC%89">¶</a></h4><ul>
+<li><p>在Cursor的Chat(Agent模式)中输入:</p>
+<ul>
+<li><span style="color: orange">
+<p><em>请修改SocialInsuranceDto的定义，包含employeeCost和employerCost两个结构体，每结构体都包含healthCostWithNoCard、careCost、pension三个字段，分别保存雇员和雇主所承担的各项费用金额。请注意，仅修改控制层相关的数据结构和算法，不要修改其它代码。我使用了WebFlux架构，请采用流式编程风格。</em></p>
+</span></li>
+</ul>
+
+</li>
+</ul>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+<ul>
+<li><h4 id="%E5%9C%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1">在开发环境下运行服务<a class="anchor-link" href="#%E5%9C%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1">¶</a></h4><ul>
+<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并按下回车:</p>
+<ul>
+<li><em><span style="color: orange">
+./gradlew bootRun --args='--spring.profiles.active=dev'
+</span></em></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+<ul>
+<li><h4 id="%E4%BD%BF%E7%94%A8Httpie%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">使用Httpie进行测试<a class="anchor-link" href="#%E4%BD%BF%E7%94%A8Httpie%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">¶</a></h4><ul>
+<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并按下回车:</p>
+<ul>
+<li><em><span style="color: orange">
+http :9002/socialInsuranceQuery monthSalary==300000 age==45
+</span></em></li>
+</ul>
+<div style="margin-bottom: 1rem; margin-left: 1rem; padding-top: 1rem">
+<p>※ 挑战：<span class="terminal-span">Httpie</span>是一个独立的命令行工具，如果你的系统中还没有安装它，请搜索相关资料并完成安装。</p>
+</div></li>
+</ul>
+</li>
+<li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
+<li><p>目前，我们的后端服务采用 <span class="terminal-span">RESTful</span> 架构风格暴露服务端点，这是基于 <span class="terminal-span">Spring WebFlux</span> 注解编程模型的常见实现方式。在后续章节中，我们将学习如何使用其他的通信协议或交互模式（如 SSE、RSocket 等）来满足更多样化的业务需求。</p>
+</li>
+<li><p>虽然使用 HTTPie 进行手动测试可以快速验证接口，但它无法满足持续集成对稳定性和效率的要求。在后续章节中，我们将引入 <span class="terminal-span">JUnit 5</span> 和 <span class="terminal-span">TestContainers</span> 构建完善的单元测试与集成测试体系。同时，我们也会学习如何使用 <span class="terminal-span">Vitest</span> 来实现高效的前端测试。</p>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=1f837271">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<div style="border-left: 5px solid #007bff; padding-left: 15px;">
+<h2 id="%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81">本章代码<a class="anchor-link" href="#%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81">¶</a></h2></div>
+<ul>
+<li>Github：</li>
 </ul>
 </div>
 </div>
