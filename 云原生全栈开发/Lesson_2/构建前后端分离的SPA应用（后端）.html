@@ -7529,7 +7529,7 @@ a.anchor-link {
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80">演示地址<a class="anchor-link" href="#%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80">¶</a></h2></div>
 <ul>
-<li></li>
+<li><a href="https://social-insurance-backend-service-811681750681.asia-northeast1.run.app/socialInsuranceQuery?monthlySalary=550000&amp;age=45">https://social-insurance-backend-service-811681750681.asia-northeast1.run.app/socialInsuranceQuery?monthlySalary=550000&amp;age=45</a></li>
 </ul>
 </div>
 </div>
@@ -7748,9 +7748,13 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 </li>
 <li><p>③ 依次设置种参数：</p>
 <ul>
+<li><p>Spring Boot版本：<em><span style="color: orange">4.0.0</span></em></p>
+</li>
+<li><p>语言：<em><span style="color: orange">Java</span></em></p>
+</li>
 <li><p>所属域：<em><span style="color: orange">jp.asatex.niuyuping</span></em></p>
 </li>
-<li><p>包名：<em><span style="color: orange">social-insurance</span></em></p>
+<li><p>包名：<em><span style="color: orange">social-insurance-backend-service</span></em></p>
 </li>
 <li><p>包类型：<em><span style="color: orange">Jar</span></em></p>
 </li>
@@ -7767,12 +7771,19 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <div style="margin-bottom: 1rem"></div>
 </li>
 <li><h4 id="%E5%88%9B%E5%BB%BAFlyway%E8%BF%81%E7%A7%BB%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6">创建Flyway迁移脚本文件<a class="anchor-link" href="#%E5%88%9B%E5%BB%BAFlyway%E8%BF%81%E7%A7%BB%E8%84%9A%E6%9C%AC%E6%96%87%E4%BB%B6">¶</a></h4><ul>
-<li>将数据库脚本文件 <a href="../References/V1__init_premium_bracket_table.sql" target="_blank">V1__init_premium_bracket_table.sql</a> 复制到目录 <span class="terminal-span">{root}/src/main/resources/db/migration</span> 下。</li>
+<li><p>将数据库脚本文件 <a href="../References/V1__init_premium_bracket_table.sql" target="_blank">V1__init_premium_bracket_table.sql</a> 复制到目录 <span class="terminal-span">{classpath}/src/main/resources/db/migration</span> 下。</p>
+<p>在Spring或其它Java项目中，<span class="terminal-span">{classpath}</span>一般代指项目的根目录。</p>
+</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
 <li><h4 id="%E5%88%9B%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">创建开发环境配置文件<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">¶</a></h4><ul>
-<li>将配置文件 <a href="../References/application-dev.properties" target="_blank">application-dev.properties</a> 复制到目录 <span class="terminal-span">{root}/src/main/resources</span> 下。</li>
+<li>将开发环境配置文件 <a href="../References/application-dev.properties" target="_blank">application-dev.properties</a> 复制到目录 <span class="terminal-span">{classpath}/src/main/resources</span> 下。</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E6%9B%B4%E6%96%B0Gradle%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">更新Gradle配置文件<a class="anchor-link" href="#%E6%9B%B4%E6%96%B0Gradle%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">¶</a></h4><ul>
+<li>将Gradle配置文件 <a href="../References/build.gradle" target="_blank">application-dev.properties</a> 复制到目录 <span class="terminal-span">{classpath}</span> 下。</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
@@ -7834,6 +7845,17 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 </li>
 </ul>
 </li>
+<li><h4 id="%E5%88%9B%E5%BB%BA%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%88GlobalExceptionHandler%EF%BC%89">创建异常处理器（GlobalExceptionHandler）<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86%E5%99%A8%EF%BC%88GlobalExceptionHandler%EF%BC%89">¶</a></h4><ul>
+<li><p>在Cursor的Chat(Agent模式)中输入:</p>
+<ul>
+<li><span style="color: orange">
+<p><em>为我添加一个全局的异常处理器GlobalExceptionHandler，出现异常时，可以将异常消息输出到控制台，如果是处理请求时出现的异常，则通过Response返回ErrorResponseDto，包含错误时间时间戳（LocalDateTime）、HTTP状态码（status）、错误类型（error）、错误消息（message）、请求路径（path），共5个字段。我使用了WebFlux架构，请采用流式编程风格。</em></p>
+</span></li>
+</ul>
+
+</li>
+</ul>
+</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 <ul>
@@ -7854,7 +7876,7 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 <li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并按下回车:</p>
 <ul>
 <li><em><span style="color: orange">
-http :9002/socialInsuranceQuery monthSalary==300000 age==45
+http :9002/socialInsuranceQuery monthlySalary==300000 age==45
 </span></em></li>
 </ul>
 <div style="margin-bottom: 1rem; margin-left: 1rem; padding-top: 1rem">
@@ -7975,7 +7997,7 @@ http :9002/socialInsuranceQuery monthSalary==300000 age==45
 <li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并按下回车:</p>
 <ul>
 <li><em><span style="color: orange">
-http :9002/socialInsuranceQuery monthSalary==300000 age==45
+http :9002/socialInsuranceQuery monthlySalary==300000 age==45
 </span></em></li>
 </ul>
 <div style="margin-bottom: 1rem; margin-left: 1rem; padding-top: 1rem">
@@ -8003,11 +8025,13 @@ http :9002/socialInsuranceQuery monthSalary==300000 age==45
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E4%BD%9C%E4%B8%9A">作业<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A">¶</a></h2></div>
 <ul>
-<li><p>按照本节所学的知识开发一个后端服务，通过Httpie完成测试。</p>
+<li><p>按照本节所学的知识开发一个后端服务。</p>
 </li>
-<li><p>向服务中添加雇用保险的数据和算法，通过Httpie完成测试。</p>
+<li><p>向服务中添加雇用保险的数据和算法。</p>
 </li>
-<li><p>向服务中添加源泉徴収税数据和算法，通过Httpie完成测试。</p>
+<li><p>向服务中添加源泉徴収税数据和算法。</p>
+</li>
+<li><p>通过Httpie对算法进行验证，并与<a href="https://revenue.asatex.jp/calculator">Asatex工资计算器</a>的计算结果进行比对。</p>
 </li>
 </ul>
 </div>
@@ -8036,7 +8060,7 @@ http :9002/socialInsuranceQuery monthSalary==300000 age==45
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81">本章代码<a class="anchor-link" href="#%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81">¶</a></h2></div>
 <ul>
-<li>Github：</li>
+<li>Github：<a href="https://github.com/niuyuping/social-insurance-backend-service">https://github.com/niuyuping/social-insurance-backend-service</a></li>
 </ul>
 </div>
 </div>
