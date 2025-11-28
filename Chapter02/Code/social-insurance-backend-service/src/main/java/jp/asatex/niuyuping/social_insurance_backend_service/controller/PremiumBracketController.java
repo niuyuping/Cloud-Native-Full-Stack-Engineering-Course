@@ -3,6 +3,8 @@ package jp.asatex.niuyuping.social_insurance_backend_service.controller;
 import jp.asatex.niuyuping.social_insurance_backend_service.application.PremiumBracketApplicationService;
 import jp.asatex.niuyuping.social_insurance_backend_service.application.dto.SocialInsuranceApplicationDto;
 import jp.asatex.niuyuping.social_insurance_backend_service.controller.dto.SocialInsuranceDto;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -15,6 +17,7 @@ import reactor.core.publisher.Mono;
  */
 @RestController
 @RequestMapping("/")
+@CrossOrigin(origins = "*")
 public class PremiumBracketController {
 
     private final PremiumBracketApplicationService premiumBracketApplicationService;

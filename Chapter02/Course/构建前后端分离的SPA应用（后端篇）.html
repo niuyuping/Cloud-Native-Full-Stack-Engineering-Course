@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>构建前后端分离的SPA应用（后端）</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>构建前后端分离的SPA应用（后端篇）</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7516,7 +7516,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E6%9E%84%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84SPA%E5%BA%94%E7%94%A8">构建前后端分离的SPA应用<a class="anchor-link" href="#%E6%9E%84%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84SPA%E5%BA%94%E7%94%A8">¶</a></h1>
+<h1 id="%E6%9E%84%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84SPA%E5%BA%94%E7%94%A8%EF%BC%88%E5%90%8E%E7%AB%AF%E7%AF%87%EF%BC%89">构建前后端分离的SPA应用（后端篇）<a class="anchor-link" href="#%E6%9E%84%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84SPA%E5%BA%94%E7%94%A8%EF%BC%88%E5%90%8E%E7%AB%AF%E7%AF%87%EF%BC%89">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7575,9 +7575,9 @@ a.anchor-link {
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E7%9B%AE%E6%A0%87">目标<a class="anchor-link" href="#%E7%9B%AE%E6%A0%87">¶</a></h2></div>
 <ul>
-<li><p>将上节课完成的<span class="terminal-span">保险计算器</span>重构为前后端分离的现代化SPA应用。我们会将保险率率、税率等敏感数据和算法分离到后端服务中，前端服务则仅专注于交互功能的实现。</p>
+<li><p>将第1章完成的<span class="terminal-span">保险计算器</span>重构为前后端分离的现代化SPA应用。我们会将保险费率、税率等敏感数据和算法分离到后端服务中，前端服务则仅专注于交互功能的实现。</p>
 </li>
-<li><p>本节课中，我们将会构建系统中的第一个<span class="terminal-span">后端服务</span>。</p>
+<li><p>我们将会构建系统中的第一个<span class="terminal-span">后端服务</span>。</p>
 </li>
 </ul>
 </div>
@@ -7592,16 +7592,6 @@ a.anchor-link {
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E6%8A%80%E6%9C%AF%E6%A0%88">技术栈<a class="anchor-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88">¶</a></h2></div>
 <ul>
-<li><h4 id="%E5%89%8D%E7%AB%AF">前端<a class="anchor-link" href="#%E5%89%8D%E7%AB%AF">¶</a></h4><ul>
-<li><p>TypeScript - <a href="https://www.typescriptlang.org">https://www.typescriptlang.org</a></p>
-</li>
-<li><p>React - <a href="https://ja.react.dev/">https://ja.react.dev/</a></p>
-</li>
-<li><p>Axios - <a href="https://axios-http.com/">https://axios-http.com/</a></p>
-</li>
-</ul>
-<div style="margin-bottom: 1rem"></div>
-</li>
 <li><h4 id="%E5%90%8E%E7%AB%AF">后端<a class="anchor-link" href="#%E5%90%8E%E7%AB%AF">¶</a></h4><ul>
 <li><p>Spring WebFlux - <a href="https://docs.spring.io/spring-framework/reference/web/webflux.html">https://docs.spring.io/spring-framework/reference/web/webflux.html</a></p>
 </li>
@@ -7707,8 +7697,6 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 </li>
 <li><p>③ 在Cursor中安装<span class="terminal-span">Spring Boot Extension Pack</span>插件</p>
 </li>
-<li><p>④ 在Cursor中安装<span class="terminal-span">TypeScript</span>插件</p>
-</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
@@ -7717,7 +7705,7 @@ psql -h localhost -p 5432 -U db_user -d social_insurance
 </li>
 <li><p>我们默认使用操作系统自带的终端应用进行命令行操作，但你也可以使用其它命令行工具，如<span class="terminal-span">Bash</span>或<span class="terminal-span">Zsh</span>，它们提供了一些增强特性。如果你有兴趣，可以尝试在系统中安装并使用它们。</p>
 </li>
-<li><p>在本课程中，我们使用<span class="terminal-span">Cursor</span>做为基础教学工具，它的AI智能体（AI Agents）使我们的课程得以更高效的进行，可以令学习者更快速的掌握架构和全栈开发知识。Cursor是收费工具，目前的定价是20美元/月。</p>
+<li><p>在本课程中，我们使用<span class="terminal-span">Cursor</span>做为基础教学工具，它的<span class="terminal-span">AI智能体</span>（AI Agents）使我们的课程得以更高效的进行，可以令学习者更快速的掌握架构和全栈开发知识。Cursor是收费工具，目前的定价是20美元/月。</p>
 </li>
 </ul>
 </li>
@@ -8080,8 +8068,6 @@ http :9002/socialInsuranceQuery monthlySalary==300000 age==45
 </li>
 <li><p>Httpie - <a href="https://www.httpie.io">https://www.httpie.io</a></p>
 </li>
-<li><p>Npm - <a href="https://www.npmjs.com">https://www.npmjs.com</a></p>
-</li>
 </ul>
 </div>
 </div>
@@ -8117,8 +8103,6 @@ http :9002/socialInsuranceQuery monthlySalary==300000 age==45
 <li><p>Extension Pack for Java - <a href="https://open-vsx.org/extension/vscjava/vscode-java-pack">https://open-vsx.org/extension/vscjava/vscode-java-pack</a></p>
 </li>
 <li><p>Spring Boot Extension Pack - <a href="https://open-vsx.org/extension/VMware/vscode-boot-dev-pack">https://open-vsx.org/extension/VMware/vscode-boot-dev-pack</a></p>
-</li>
-<li><p>TypeScript (Native Preview) - <a href="https://github.com/microsoft/typescript-go">https://github.com/microsoft/typescript-go</a></p>
 </li>
 </ul>
 </div>

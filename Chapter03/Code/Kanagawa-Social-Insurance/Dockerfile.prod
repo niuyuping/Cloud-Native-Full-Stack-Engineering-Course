@@ -1,0 +1,50 @@
+# Cloud Run用Next.js Dockerfile - 生产环境
+FROM node:24.11.1 AS builder
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# 构建参数 - 可以在构建时通过 --build-arg 传递
+# Cloud Run 部署时可以通过构建参数设置
+ARG NEXT_PUBLIC_ENV=prod
+ENV NEXT_PUBLIC_ENV=$NEXT_PUBLIC_ENV
+
+# package.jsonとpackage-lock.jsonをコピー
+COPY package*.json ./
+
+# すべての依存関係をインストール
+RUN npm ci
+
+# ソースコードをコピー
+COPY . .
+
+# Next.js アプリケーションをビルド（standalone モード）
+RUN npm run build
+
+# 本番段階 - Next.js standalone モードで実行
+FROM node:24.11.1 AS production
+
+# 作業ディレクトリを設定
+WORKDIR /app
+
+# 非rootユーザーを作成（セキュリティのため）
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# ビルド段階から必要なファイルをコピー
+COPY --from=builder /app/public ./public
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+# nextjsユーザーに切り替え
+USER nextjs
+
+# ポートを公開（Cloud Run は PORT 環境変数を使用）
+EXPOSE 8080
+
+# 環境変数を設定（Cloud Run で設定された環境変数が使用される）
+ENV PORT=8080
+ENV HOSTNAME="0.0.0.0"
+
+# Next.js サーバーを起動
+CMD ["node", "server.js"]

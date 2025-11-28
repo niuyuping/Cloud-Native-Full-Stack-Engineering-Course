@@ -1,0 +1,37 @@
+{
+  "name": "神奈川县社会保险计算器",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "NEXT_PUBLIC_ENV=dev next dev",
+    "dev:test": "NEXT_PUBLIC_ENV=test next dev",
+    "dev:prod": "NEXT_PUBLIC_ENV=prod next dev",
+    "build": "next build",
+    "build:test": "NEXT_PUBLIC_ENV=test next build",
+    "build:prod": "NEXT_PUBLIC_ENV=prod next build",
+    "start": "next start",
+    "start:test": "NEXT_PUBLIC_ENV=test next start",
+    "start:prod": "NEXT_PUBLIC_ENV=prod next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.10.1",
+    "axios": "^1.13.2",
+    "next": "^16.0.2",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "react-redux": "^9.2.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.17",
+    "@types/node": "^22.14.0",
+    "@types/react": "19.2.7",
+    "@vitejs/plugin-react": "^5.0.0",
+    "autoprefixer": "^10.4.22",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.17",
+    "typescript": "~5.8.2",
+    "vite": "^6.2.0"
+  }
+}
