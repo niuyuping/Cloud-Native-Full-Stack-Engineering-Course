@@ -1,23 +1,8 @@
 
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { CalculationResult, CalculatorState } from '../types';
-import { insuranceData } from '../data/insuranceData';
-
-/**
- * Implements the specific rounding rule for Japanese social insurance premiums.
- * - If the decimal part is <= 0.5, it's rounded down (truncated).
- * - If the decimal part is > 0.5, it's rounded up.
- * @param amount The amount to round.
- * @returns The rounded integer amount.
- */
-const japaneseRounding = (amount: number): number => {
-    const integerPart = Math.floor(amount);
-    const decimalPart = amount - integerPart;
-    if (decimalPart <= 0.5) {
-        return integerPart;
-    }
-    return integerPart + 1;
-};
+import { ApiClient } from '../api/ApiClient';
+import { CALCULATION_DATE } from '../utils/constants';
 
 
 const initialState: CalculatorState = {
@@ -35,9 +20,6 @@ export const calculateResult = createAsyncThunk<
 >(
     'calculator/calculate',
     async ({ salaryStr, birthDateStr }, { rejectWithValue }) => {
-        // Simulate a small delay for better UX
-        await new Promise(resolve => setTimeout(resolve, 300));
-
         const salary = Number(salaryStr);
         if (isNaN(salary) || salary <= 0) {
             return rejectWithValue('请输入有效的月收入。');
@@ -47,7 +29,7 @@ export const calculateResult = createAsyncThunk<
             return rejectWithValue('请输入您的出生日期。');
         }
 
-        const calculationDate = new Date('2025-03-01');
+        const calculationDate = new Date(CALCULATION_DATE);
         const birthDate = new Date(birthDateStr);
         
         if (isNaN(birthDate.getTime())) {
@@ -59,34 +41,35 @@ export const calculateResult = createAsyncThunk<
         if (m < 0 || (m === 0 && calculationDate.getDate() < birthDate.getDate())) {
             age--;
         }
-        
-        const isLongTermCareApplicable = age >= 40 && age <= 64;
 
-        const row = insuranceData.find(r => salary >= r.salaryMin && salary < r.salaryMax);
+        try {
+            const apiClient = new ApiClient();
+            const result = await apiClient.getSocialInsurance(salary, age);
 
-        if (!row) {
-            return rejectWithValue('未找到该月收入对应的保险费数据，请核对输入值。');
+            const healthInsurance = result.employeeCost.healthCostWithNoCare;
+            const longTermCareInsurance = result.employeeCost.careCost;
+            const pensionInsurance = result.employeeCost.pension;
+
+            const totalDeduction = healthInsurance + longTermCareInsurance + pensionInsurance;
+
+            return {
+                salary: salary,
+                standardRemuneration: 0, // API 未返回此字段，设为 0
+                healthInsurance: healthInsurance,
+                longTermCareInsurance: longTermCareInsurance,
+                pensionInsurance: pensionInsurance,
+                totalDeduction: totalDeduction,
+                takeHomePay: salary - totalDeduction,
+            };
+        } catch (error: any) {
+            if (error.response) {
+                return rejectWithValue(error.response.data?.message || '获取社会保险数据失败，请稍后重试。');
+            } else if (error.request) {
+                return rejectWithValue('无法连接到服务器，请检查网络连接。');
+            } else {
+                return rejectWithValue('发生未知错误，请稍后重试。');
+            }
         }
-
-        const healthInsuranceRaw = row.healthInsuranceNoCare;
-        const longTermCareInsuranceRaw = isLongTermCareApplicable ? (row.healthInsuranceWithCare - row.healthInsuranceNoCare) : 0;
-        const pensionRaw = row.pensionInsurance;
-
-        const healthInsurance = japaneseRounding(healthInsuranceRaw);
-        const longTermCareInsurance = japaneseRounding(longTermCareInsuranceRaw);
-        const pensionInsurance = japaneseRounding(pensionRaw);
-
-        const totalDeduction = healthInsurance + longTermCareInsurance + pensionInsurance;
-
-        return {
-            salary: salary,
-            standardRemuneration: row.standardRemuneration,
-            healthInsurance: healthInsurance,
-            longTermCareInsurance: longTermCareInsurance,
-            pensionInsurance: pensionInsurance,
-            totalDeduction: totalDeduction,
-            takeHomePay: salary - totalDeduction,
-        };
     }
 );
 

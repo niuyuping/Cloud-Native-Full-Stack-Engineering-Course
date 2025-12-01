@@ -1,7 +1,7 @@
 
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { CalculationResult, CalculatorState } from '../types';
-import { APIClient } from '../api/APIClient';
+import { ApiClient } from '../api/ApiClient';
 import { CALCULATION_DATE } from '../utils/constants';
 
 
@@ -43,7 +43,7 @@ export const calculateResult = createAsyncThunk<
         }
 
         try {
-            const apiClient = new APIClient();
+            const apiClient = new ApiClient();
             const result = await apiClient.getSocialInsurance(salary, age);
 
             const healthInsurance = result.employeeCost.healthCostWithNoCare;

@@ -6,12 +6,13 @@ import { setSalary, setBirthDate, calculateResult } from '../store/calculatorSli
 import { Input } from './shared/Input';
 import { Button } from './shared/Button';
 import { CALCULATION_DATE } from '../utils/constants';
+import { useState } from 'react';
 
 const CalculatorForm: React.FC = () => {
     const dispatch = useDispatch<AppDispatch>();
     const { salary, birthDate, status, error } = useSelector((state: RootState) => state.calculator);
     const isLoading = status === 'loading';
-
+        
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
         dispatch(calculateResult({ salaryStr: salary, birthDateStr: birthDate }));
