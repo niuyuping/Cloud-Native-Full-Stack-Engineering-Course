@@ -7786,7 +7786,7 @@ a.anchor-link {
 <li><p>在Cursor的Chat(Agent模式)中输入:</p>
 <ul>
 <li><span style="color: orange">
-<p><em>请为我创建ApiClient类，添加getSocialInsurance方法，使用axios从/socialInsuranceQuery端点获取社会保险数据，方式为Get，输入参数为月薪（monthlySalary）、年龄（age），共两个。输出SocialInsuranceDTO，对应的JSON格式如下：</em></p>
+<p><em>请为我创建ApiClient类，添加getSocialInsurance方法，使用axios从/socialInsuranceQuery端点获取社会保险数据，方式为Get，请求参数为月薪（monthlySalary）、年龄（age），共两个。返回JSON格式的SocialInsuranceDTO，格式如下：</em></p>
 <pre style="color: orange; font-style: italic;">
 {  
   employeeCost: {  
@@ -7836,24 +7836,21 @@ npm run dev
 </span></em></p>
 </li>
 </ul>
-</li>
-</ul>
-</li>
-</ul>
 <div style="margin-bottom: 1rem"></div>
-<ul>
-<li><p>如果运行成功，将看到类似这样的信息：
+</li>
+<li><p>如果运行成功，将看到类似这样的信息：</p>
 <div class="terminal-div">
 <div>VITE v6.4.1  ready in 458 ms</div>
-<div>➜  Local:   <a href="http://localhost:3000/">http://localhost:3000/</a></div>
-<div>➜  Network: <a href="http://192.168.1.24:3000/">http://192.168.1.24:3000/</a></div>
-<div>➜  Network: <a href="http://10.211.55.2:3000/">http://10.211.55.2:3000/</a></div>
+<div>➜  Local:   http://localhost:3000/</div>
+<div>➜  Network: http://192.168.1.24:3000/</div>
+<div>➜  Network: http://10.211.55.2:3000/</div>
 <div>➜  press h + enter to show help</div>
-</div></p>
+</div>
 <div style="margin-bottom: 1rem; margin-left: 1rem; padding-top: 1rem">
 <p>※ 挑战：<span class="terminal-span">NPM</span>是一个独立的命令行工具，如果你的系统中还没有安装它，请搜索相关资料并完成安装。</p>
-<div style="margin-bottom: 1rem"></div>
 </div></li>
+</ul>
+</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 <ul>
@@ -7978,13 +7975,11 @@ npm run dev
 
 <p>※ 这段代码仅用于测试学习，没有实际意义，完成后要记得删除。</p>
 <div style="margin-bottom: 1rem"></div>
-<ul>
-<li><h4 id="%E7%8A%B6%E6%80%81%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">状态处理流程<a class="anchor-link" href="#%E7%8A%B6%E6%80%81%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">¶</a></h4></li>
-</ul>
-<img alt="Social Insurance Query System" src="../../Assets/react-state.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
-<div style="margin-bottom: 1rem"></div>
 </li>
 </ul>
+</li>
+<li><h4 id="%E7%8A%B6%E6%80%81%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">状态处理流程<a class="anchor-link" href="#%E7%8A%B6%E6%80%81%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/react-state.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
 </li>
 </ul>
 </div>
