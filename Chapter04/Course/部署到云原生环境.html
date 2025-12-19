@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>构建前后端分离的SPA应用（前端篇）</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>部署到云原生环境</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7516,7 +7516,7 @@ a.anchor-link {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="%E6%9E%84%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84SPA%E5%BA%94%E7%94%A8%EF%BC%88%E5%89%8D%E7%AB%AF%E7%AF%87%EF%BC%89">构建前后端分离的SPA应用（前端篇）<a class="anchor-link" href="#%E6%9E%84%E5%BB%BA%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%E7%9A%84SPA%E5%BA%94%E7%94%A8%EF%BC%88%E5%89%8D%E7%AB%AF%E7%AF%87%EF%BC%89">¶</a></h1>
+<h1 id="%E9%83%A8%E7%BD%B2%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E7%8E%AF%E5%A2%83">部署到云原生环境<a class="anchor-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0%E4%BA%91%E5%8E%9F%E7%94%9F%E7%8E%AF%E5%A2%83">¶</a></h1>
 </div>
 </div>
 </div>
@@ -7529,9 +7529,9 @@ a.anchor-link {
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81">本章代码<a class="anchor-link" href="#%E6%9C%AC%E7%AB%A0%E4%BB%A3%E7%A0%81">¶</a></h2></div>
 <ul>
-<li><p>前端 -&gt; <a href="https://github.com/niuyuping/Kanagawa-Social-Insurance/tree/Chapter03">https://github.com/niuyuping/Kanagawa-Social-Insurance/tree/Chapter03</a></p>
+<li><p>前端 -&gt; <a href="https://github.com/niuyuping/Kanagawa-Social-Insurance/tree/Chapter04">https://github.com/niuyuping/Kanagawa-Social-Insurance/tree/Chapter04</a></p>
 </li>
-<li><p>后端 -&gt; <a href="https://github.com/niuyuping/social-insurance-backend-service/tree/Chapter03">https://github.com/niuyuping/social-insurance-backend-service/tree/Chapter03</a></p>
+<li><p>后端 -&gt; <a href="https://github.com/niuyuping/social-insurance-backend-service/tree/Chapter04">https://github.com/niuyuping/social-insurance-backend-service/tree/Chapter04</a></p>
 </li>
 </ul>
 </div>
@@ -7546,7 +7546,7 @@ a.anchor-link {
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80">演示地址<a class="anchor-link" href="#%E6%BC%94%E7%A4%BA%E5%9C%B0%E5%9D%80">¶</a></h2></div>
 <ul>
-<li><a href="https://social-insurance-frontend-chapter03-811681750681.asia-northeast1.run.app">https://social-insurance-frontend-chapter03-811681750681.asia-northeast1.run.app</a></li>
+<li><a href="https://social-insurance-frontend-service-chapter04-xiq5zubcoq-an.a.run.app">https://social-insurance-frontend-service-chapter04-xiq5zubcoq-an.a.run.app</a></li>
 </ul>
 </div>
 </div>
@@ -7578,22 +7578,16 @@ a.anchor-link {
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E7%9B%AE%E6%A0%87">目标<a class="anchor-link" href="#%E7%9B%AE%E6%A0%87">¶</a></h2></div>
 <ul>
-<li><p>将第1章完成的<span class="terminal-span">保险计算器</span>重构为前后端分离的现代化SPA应用。我们会将保险费率、税率等敏感数据和算法分离到后端服务中，前端服务则仅专注于交互功能的实现。</p>
-</li>
-<li><p>我们将以第1章中<span class="terminal-span">Google AI Studio</span>制作的原型为基础，构建我们的第一个<span class="terminal-span">前端服务</span>。</p>
-</li>
-</ul>
+<li><p>将前面章节中构建的前端和后端服务发布到<span class="terminal-span">Google Cloud Run</span>上，使用云数据库<span class="terminal-span">Google Cloud SQL</span>来代替原生PostgreSQL数据库。</p>
 <div style="margin-bottom: 1rem"></div>
-<ul>
-<li><h4 id="SPA%E4%B8%8EMPA%E5%AF%B9%E6%AF%94">SPA与MPA对比<a class="anchor-link" href="#SPA%E4%B8%8EMPA%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/spa-mpa.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+</li>
+<li><h4 id="%E4%BB%8EGithub%E5%88%B0Cloud-Run%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83">从Github到Cloud Run持续发布<a class="anchor-link" href="#%E4%BB%8EGithub%E5%88%B0Cloud-Run%E6%8C%81%E7%BB%AD%E5%8F%91%E5%B8%83">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/github-build-delploy.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
 <div style="margin-bottom: 1rem"></div>
 </li>
 <li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
-<li><p><span class="terminal-span">SPA</span> 是一个整个生命周期只加载一个 HTML 文件的 <span class="terminal-span">Web</span> 应用。后续的所有交互都靠 JavaScript 动态更新页面。它解决了传统网页跳转时“刷页、白屏”的糟糕体验，让网页用起来像 App 一样流畅。</p>
+<li><p><span class="terminal-span">Cloud Run</span> 是在 Google Cloud 上部署无状态应用的服务，它结合了 Kubernetes 的灵活性和 Serverless 的便捷性。如果你有一个可以通 过 HTTP 访问的 Web 应用或 API，且不需要持久化存储在本地磁盘，那么 Cloud Run 以及同类服务通常是性价比最高且最省心的选择。</p>
 </li>
-<li><p><span class="terminal-span">React</span> 就是用来构建 SPA 的核心工具。 如果没有 React 这种框架来高效地管理页面如何局部更新，手动写原生 JS 去实现 SPA 将会极其复杂和痛苦。</p>
-</li>
-<li><p><span class="terminal-span">Next.js</span> 的出现很大程度上是为了解决纯 SPA 的缺点（首屏慢、SEO 差），它通过<span class="terminal-span">服务器端渲染 (SSR)</span>技术，让应用既有 SPA 的流畅体验，又有 MPA 的首屏速度和 SEO 优势。</p>
+<li><p><span class="terminal-span">Cloud SQL</span> 是一项全托管关系型数据库服务，它在云端提供 MySQL、PostgreSQL 或 SQL Server 数据库，不需要自己去购买服务器、安装数据库软件、处理备份或打补丁，是传统 Web 应用迁移上云或新开发应用最常用的数据库选择。</p>
 </li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
@@ -7611,14 +7605,10 @@ a.anchor-link {
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E6%8A%80%E6%9C%AF%E6%A0%88">技术栈<a class="anchor-link" href="#%E6%8A%80%E6%9C%AF%E6%A0%88">¶</a></h2></div>
 <ul>
-<li><h4 id="%E5%89%8D%E7%AB%AF">前端<a class="anchor-link" href="#%E5%89%8D%E7%AB%AF">¶</a></h4><ul>
-<li><p>TypeScript - <a href="https://www.typescriptlang.org">https://www.typescriptlang.org</a></p>
+<li><h4 id="%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%EF%BC%88%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%EF%BC%89">基础设施（インフラ）<a class="anchor-link" href="#%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%EF%BC%88%E3%82%A4%E3%83%B3%E3%83%95%E3%83%A9%EF%BC%89">¶</a></h4><ul>
+<li><p>Docker - <a href="https://www.docker.com/">https://www.docker.com/</a></p>
 </li>
-<li><p>React - <a href="https://ja.react.dev">https://ja.react.dev</a></p>
-</li>
-<li><p>Next.js - <a href="https://nextjs.org">https://nextjs.org</a></p>
-</li>
-<li><p>Axios - <a href="https://axios-http.com/">https://axios-http.com/</a></p>
+<li><p>Google Cloud - <a href="https://cloud.google.com">https://cloud.google.com</a></p>
 </li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
@@ -7635,7 +7625,7 @@ a.anchor-link {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE">系统架构图<a class="anchor-link" href="#%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84%E5%9B%BE">¶</a></h2></div>
-<img alt="Social Insurance Query System" src="../../Assets/Social Insurance Query System.jpg" style="max-width: 100%; margin-left: 25px; padding: 50px; background-color: white"/>
+<img alt="Social Insurance Query System" src="../../Assets/Deploy_to_Cloud_Run_01.jpg" style="max-width: 100%; margin-left: 25px; padding: 50px; background-color: white"/>
 </div>
 </div>
 </div>
@@ -7662,51 +7652,311 @@ a.anchor-link {
         border-radius: 0.25rem; 
         margin-left: 1rem; 
     }
+    .button-div {
+        padding: 0.25rem; 
+        border-radius: 0.25rem; 
+        border: 1px solid;
+    }
+    .radio-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+
+    .radio-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 50%;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        box-shadow: inset 0 0 0 3px white; 
+    }
+    .check-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .check-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
+    .uncheck-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .uncheck-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+            
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
+
 </style>
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">搭建本地开发环境<a class="anchor-link" href="#%E6%90%AD%E5%BB%BA%E6%9C%AC%E5%9C%B0%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83">¶</a></h2></div>
+<h2 id="%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">创建数据库<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">¶</a></h2></div>
 <ul>
-<li><h4 id="%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">启动本地后端服务<a class="anchor-link" href="#%E5%90%AF%E5%8A%A8%E6%9C%AC%E5%9C%B0%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h4><ul>
-<li><p>① 启动Cursor。</p>
+<li><h4 id="%E5%88%9B%E5%BB%BACloud-SQL-PostgreSQL%E5%AE%9E%E4%BE%8B">创建Cloud SQL PostgreSQL实例<a class="anchor-link" href="#%E5%88%9B%E5%BB%BACloud-SQL-PostgreSQL%E5%AE%9E%E4%BE%8B">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/sql/get-started">Cloud SQL开始页面</a>。</p>
 </li>
-<li><p>② 打开第2章构建的后端服务（social-insurance-backend-service）代码。</p>
+<li><p>② 依次点击 <span class="button-div">创建实例</span> -&gt; <span class="button-div">选择 PostgreSQL</span></p>
 </li>
-<li><p>③ 在Cursor的终端窗口里输入并按下回车:</p>
+<li><p>③ 在「创建PostgreSQL」页面中依次配置以下参数:</p>
 <ul>
-<li><em><span style="color: orange">
-./gradlew bootRun --args='--spring.profiles.active=dev'
-</span></em></li>
+<li><p>「Cloud SQL版本」 -&gt;  <span class="radio-div">企业版</span></p>
+</li>
+<li><p>「版本预设」 -&gt;  沙盒</p>
+</li>
+<li><p>「实例信息」</p>
+<ul>
+<li><p>「数据库版本」 -&gt; PostgreSQL 17</p>
+</li>
+<li><p>「实例ID」 -&gt; <span style="color: orange"><em>social-insurance-database</em></span></p>
+</li>
+<li><p>「密码」 -&gt; {<strong>输入要使用的默认管理员密码</strong>}</p>
+</li>
 </ul>
 </li>
-<li><p>④ 终端窗口里会显示服务启动日志，最后的几行信息如下：</p>
-<div class="terminal-div">
-<div>INFO 24769 --- [social-insurance-backend-service] [main] o.s.boot.reactor.netty.NettyWebServer    : Netty started on port 9002 (http)</div>
-<div>INFO 24769 --- [social-insurance-backend-service] [main]SocialInsuranceBackendServiceApplication : Started SocialInsuranceBackendServiceApplication in 4.217 seconds (process running for 4.977)</div>
-<div>&lt;==========---&gt; 80% EXECUTING [2m 17s]</div>
-<div>&gt; :bootRun</div>
-</div>
-<p>※ 如果服务未能启动成功，请参考第2章的内容进行检查。</p>
+<li><p>「区域」 -&gt; {<strong>选择离你的用户最近的区域</strong>}</p>
+</li>
+<li><p>「可用区级可用性」　-&gt; <span class="radio-div">单个可用区</span></p>
+</li>
+<li><p>「自定义实例」</p>
+<ul>
+<li><p>「机器配置」 -&gt; 通用 - 共享核心 -&gt; <span class="radio-div">1vCPU, 0.614 GB</span></p>
+</li>
+<li><p>「存储空间 -&gt; 存储类型」 -&gt; <span class="radio-div">HDD</span></p>
+</li>
+<li><p>「存储空间容量」 -&gt; <span class="radio-div">10 GB</span></p>
+</li>
+</ul>
+</li>
+<li><p>「连接数」</p>
+<ul>
+<li><p>「实例IP分配」 -&gt; <span class="check-div">专用IP</span></p>
+</li>
+<li><p>「选择专用连接方法」 -&gt; <span class="check-div">专用服务访问通道(PSA)</span> -&gt; {<strong>选择默认的<span class="terminal-span">VPC网络</span></strong>}</p>
+</li>
+<li><p><span class="uncheck-div">公共IP</span></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>④ 点击 <span class="button-div">保存</span></p>
 </li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
-<li><h4 id="%E9%85%8D%E7%BD%AE%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88IDE%EF%BC%89">配置集成开发环境（IDE）<a class="anchor-link" href="#%E9%85%8D%E7%BD%AE%E9%9B%86%E6%88%90%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%EF%BC%88IDE%EF%BC%89">¶</a></h4><ul>
-<li><p>① 启动一个新的Cursor窗口。</p>
+<li><h4 id="%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">创建数据库<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/sql/instances">Cloud SQL实例页面</a>。</p>
 </li>
-<li><p>② 在Cursor中安装<span class="terminal-span">TypeScript</span>插件</p>
+<li><p>② 依次点击「实例 -&gt; social-insurance-database」</p>
+</li>
+<li><p>③ 依次点击「数据库」 -&gt; <span class="button-div">创建数据库</span></p>
+<ul>
+<li><p>「数据库名称」 -&gt; <span style="color: orange"><em>social_insurance</em></span></p>
+</li>
+<li><p>点击 <span class="button-div">创建</span></p>
+</li>
+</ul>
 </li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
-<li><h4 id="TypeScript%E4%B8%8EJavaScript%E5%AF%B9%E6%AF%94">TypeScript与JavaScript对比<a class="anchor-link" href="#TypeScript%E4%B8%8EJavaScript%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/typescript-javascript.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
-<img alt="Social Insurance Query System" src="../../Assets/javascript-typescripte-01.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<li><h4 id="%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7">创建数据库用户<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E7%94%A8%E6%88%B7">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/sql/instances">Cloud SQL实例页面</a>。</p>
+</li>
+<li><p>② 依次点击「实例 -&gt; social-insurance-database」</p>
+</li>
+<li><p>③ 依次点击「用户」 -&gt; <span class="button-div">添加用户帐号</span></p>
+<ul>
+<li><p><span class="radio-div">内置身份验证</span></p>
+</li>
+<li><p>「用户名」 -&gt; <span style="color: orange"><em>db_user</em></span></p>
+</li>
+<li><p>「密码」 -&gt; {<strong>输入db_user的密码</strong>}</p>
+</li>
+<li><p>点击 <span class="button-div">添加</span></p>
+</li>
+</ul>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E9%85%8D%E7%BD%AE%E5%86%85%E9%83%A8%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C">配置内部专用网络<a class="anchor-link" href="#%E9%85%8D%E7%BD%AE%E5%86%85%E9%83%A8%E4%B8%93%E7%94%A8%E7%BD%91%E7%BB%9C">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/sql/instances">Cloud SQL实例页面</a>。</p>
+</li>
+<li><p>② 依次点击「实例 -&gt; social-insurance-database」</p>
+</li>
+<li><p>③ 依次点击「连接 -&gt; 摘要」</p>
+</li>
+<li><p>④ 记下「专用IP连接 -&gt; 服务连接方法 -&gt; 内部IP地址」，在部署<span class="terminal-span">后端服务</span>时会用到这个IP地址。</p>
+</li>
+</ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
 <li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
-<li><p><span class="terminal-span">TypeScript</span>是<span class="terminal-span">JavaScript</span>的超集，它提供了类型安全和ES新特性支持，在的云原生开发、大型前端项目（React/Vue/Angular）和后端（Node.js/NestJS），几乎都首选 TypeScript，因为它能极大地减少低级 Bug。</p>
+<li>本章建立的Cloud SQL实例是按照<span class="terminal-span">最经济的标准</span>创建的，意味着性能很低，花费也很低，主要用于学习目的。如果是生产环境，则需要按照实际需求重新配置。</li>
+</ul>
 </li>
-<li><p>在本地开发环境中，后端服务以开发模式运行在本地环境中，这种方式增加了额外的复杂性和不稳定性。在后面的课程中，我们将学习在<span class="terminal-span">Docker环境中部署制品</span>的方式来提供后端服务。</p>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4336b6c1">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<style>
+    .terminal-span {
+        margin: 0 0.1rem !important; 
+        padding: 0.1rem 0.2rem !important; 
+        background-color: #d3e3fd !important;
+        color: black !important;
+        border-radius: 0.25rem !important;
+    }
+    .terminal-div {
+        padding: 1rem; 
+        background-color: #d3e3fd; 
+        color: black; 
+        width: 40rem; 
+        margin-bottom: 1rem; 
+        border-radius: 0.25rem; 
+        margin-left: 1rem; 
+    }
+    .button-div {
+        padding: 0.25rem; 
+        border-radius: 0.25rem; 
+        border: 1px solid;
+    }
+    .radio-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+
+    .radio-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 50%;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        box-shadow: inset 0 0 0 3px white; 
+    }
+    .check-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .check-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
+    .uncheck-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .uncheck-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+            
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
+
+</style>
+<div style="border-left: 5px solid #007bff; padding-left: 15px;">
+<h2 id="%E5%88%9B%E5%BB%BAVPC%E8%BF%9E%E6%8E%A5%E5%99%A8">创建VPC连接器<a class="anchor-link" href="#%E5%88%9B%E5%BB%BAVPC%E8%BF%9E%E6%8E%A5%E5%99%A8">¶</a></h2></div>
+<ul>
+<li><h4 id="%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8VPC%E8%BF%9E%E6%8E%A5%E5%99%A8%E6%9E%B6%E6%9E%84%E5%9B%BE%EF%BC%88Serverless-VPC-Connector%EF%BC%89">无服务器VPC连接器架构图（Serverless VPC Connector）<a class="anchor-link" href="#%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8VPC%E8%BF%9E%E6%8E%A5%E5%99%A8%E6%9E%B6%E6%9E%84%E5%9B%BE%EF%BC%88Serverless-VPC-Connector%EF%BC%89">¶</a></h4><ul>
+<li>Cloud Run服务之间通过Serverless VPC Connector连接
+<img alt="Social Insurance Query System" src="../../Assets/vpc-service-to-service.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/></li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+<ul>
+<li>Cloud Run通过Serverless VPC Connector连接Cloud SQL
+<img alt="Social Insurance Query System" src="../../Assets/vpc-service-to-sql.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/></li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
 </li>
+<li><h4 id="%E5%88%9B%E5%BB%BA%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8VPC%E8%BF%9E%E6%8E%A5%E5%99%A8">创建无服务器VPC连接器<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E6%97%A0%E6%9C%8D%E5%8A%A1%E5%99%A8VPC%E8%BF%9E%E6%8E%A5%E5%99%A8">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/networking">Cloud VPC网络页面</a>。</p>
+</li>
+<li><p>② 依次点击 「无服务器VPC访问通道」 -&gt; <span class="button-div">创建连接器</span> 按钮。</p>
+</li>
+<li><p>③ 在「创建连接器」页面中依次配置以下参数:</p>
+<ul>
+<li><p>「名称」 -&gt; <span style="color: orange"><em>social-insurance-vpc</em></span></p>
+</li>
+<li><p>「区域」 -&gt; {<strong>选择离你的用户最近的区域</strong>}</p>
+</li>
+<li><p>「网络」　-&gt; {<strong>选择默认网络</strong>}</p>
+</li>
+<li><p>「子网」 -&gt; 「自定义IP范围」 -&gt; 「IP范围」 -&gt; <span style="color: orange"><em>10.8.0.0</em></span></p>
+</li>
+<li><p><span class="button-div">显示扩缩设置</span> -&gt; 「调节设置」</p>
+<ul>
+<li>「实例类型」 -&gt; f1-micro</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>④ 点击 <span class="button-div">创建</span> 按钮。</p>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
+<li><span class="terminal-span">VPC</span>是虚拟私有云（Virtual Private Cloud）的缩写，它构建在Google Cloud、AWS这类公有云上，<span class="terminal-span">VPC网络</span>是在VPC内部建立的专用网络，数据和流量在逻辑上与其他用户的流量完全分开，互不干扰，我们可以在VPC网络上定义独立路由和安全策略。VPC也可以通过<span class="terminal-span">虚拟专用网络（VPN）</span>或专线与<span class="terminal-span">私有云（Private Cloud）</span>连接，构建<span class="terminal-span">混合云（Hybrid Cloud）</span>。</li>
 </ul>
 </li>
 </ul>
@@ -7736,150 +7986,218 @@ a.anchor-link {
         border-radius: 0.25rem; 
         margin-left: 1rem; 
     }
+    .button-div {
+        padding: 0.25rem; 
+        border-radius: 0.25rem; 
+        border: 1px solid;
+    }
+    .radio-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+
+    .radio-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 50%;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        box-shadow: inset 0 0 0 3px white; 
+    }
+    .check-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .check-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
+    .uncheck-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .uncheck-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+            
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
 </style>
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E6%9E%84%E5%BB%BA%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">构建前端服务<a class="anchor-link" href="#%E6%9E%84%E5%BB%BA%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h2></div>
+<h2 id="%E9%83%A8%E7%BD%B2%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">部署后端服务<a class="anchor-link" href="#%E9%83%A8%E7%BD%B2%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h2></div>
 <ul>
-<li><h4 id="React%E4%B8%8E%E4%BC%A0%E7%BB%9F%E5%89%8D%E7%AB%AF%EF%BC%88HTML+CSS+JQuery/JSP%EF%BC%89%E5%AF%B9%E6%AF%94">React与传统前端（HTML+CSS+JQuery/JSP）对比<a class="anchor-link" href="#React%E4%B8%8E%E4%BC%A0%E7%BB%9F%E5%89%8D%E7%AB%AF%EF%BC%88HTML+CSS+JQuery/JSP%EF%BC%89%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/react-dom.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
-<div style="margin-bottom: 1rem"></div>
-</li>
-<li><h4 id="%E6%8B%89%E5%8F%96%E5%8E%9F%E5%9E%8B%E4%BB%A3%E7%A0%81">拉取原型代码<a class="anchor-link" href="#%E6%8B%89%E5%8F%96%E5%8E%9F%E5%9E%8B%E4%BB%A3%E7%A0%81">¶</a></h4><ul>
+<li><h4 id="%E5%85%8B%E9%9A%86%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%A0%81">克隆后端服务代码<a class="anchor-link" href="#%E5%85%8B%E9%9A%86%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%A0%81">¶</a></h4><ul>
 <li><p>① 在Cursor首页按下<span class="terminal-span">Shift + Command + P</span>(MacOS)或<span class="terminal-span">Shift + Ctrl + P </span>(Windows)</p>
 </li>
 <li><p>② 输入 <em><span style="color: orange">git: clone</span></em></p>
 </li>
-<li><p>③ 输入<span class="terminal-span">第1章中的原型代码库</span>地址（Github代码库URL）。</p>
+<li><p>③ 输入{<strong>第2章构建的后端服务代码库地址</strong>}（Github代码库URL）。</p>
 </li>
 <li><p>④ 打开克隆下来的代码。</p>
 <div style="margin-bottom: 1rem"></div>
 </li>
 </ul>
 </li>
-<li><h4 id="%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A8%A1%E5%BC%8F%EF%BC%88Runtime-Mode%EF%BC%89%E4%B8%8E%E6%9E%84%E5%BB%BA%E6%97%B6%E6%A8%A1%E5%BC%8F%EF%BC%88Build-Mode%EF%BC%89%E7%9A%84%E4%BE%9D%E8%B5%96%E5%AF%BC%E5%85%A5%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94">运行时模式（Runtime Mode）与构建时模式（Build Mode）的依赖导入方式对比<a class="anchor-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E6%A8%A1%E5%BC%8F%EF%BC%88Runtime-Mode%EF%BC%89%E4%B8%8E%E6%9E%84%E5%BB%BA%E6%97%B6%E6%A8%A1%E5%BC%8F%EF%BC%88Build-Mode%EF%BC%89%E7%9A%84%E4%BE%9D%E8%B5%96%E5%AF%BC%E5%85%A5%E6%96%B9%E5%BC%8F%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/tailwind-css-fix.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<li><h4 id="%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%EF%BC%88Same-Origin-Policy,-SOP%EF%BC%89">同源策略（Same-Origin Policy, SOP）<a class="anchor-link" href="#%E5%90%8C%E6%BA%90%E7%AD%96%E7%95%A5%EF%BC%88Same-Origin-Policy,-SOP%EF%BC%89">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/sop.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
 <div style="margin-bottom: 1rem"></div>
 </li>
-<li><h4 id="%E4%BF%AE%E5%A4%8D%E4%BE%9D%E8%B5%96%E5%AF%BC%E5%85%A5%E6%96%B9%E5%BC%8F">修复依赖导入方式<a class="anchor-link" href="#%E4%BF%AE%E5%A4%8D%E4%BE%9D%E8%B5%96%E5%AF%BC%E5%85%A5%E6%96%B9%E5%BC%8F">¶</a></h4><ul>
+<li><h4 id="%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%EF%BC%88CORS%EF%BC%89">跨域资源共享（CORS）<a class="anchor-link" href="#%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%EF%BC%88CORS%EF%BC%89">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/cors.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E6%B7%BB%E5%8A%A0%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%E7%AD%96%E7%95%A5%EF%BC%88CORS%EF%BC%89">添加跨域资源共享策略（CORS）<a class="anchor-link" href="#%E6%B7%BB%E5%8A%A0%E8%B7%A8%E5%9F%9F%E8%B5%84%E6%BA%90%E5%85%B1%E4%BA%AB%E7%AD%96%E7%95%A5%EF%BC%88CORS%EF%BC%89">¶</a></h4><ul>
 <li><p>在Cursor的Chat(Agent模式)中输入:</p>
 <ul>
 <li><span style="color: orange">
-<p><em>我的项目原型是在Google AI Studio上构建的，现在在本地构建时需要将TailWind以及其它依赖库的导入方式从运行时模式变更为构建时模式，请分析项目中的所有代码，并帮我完成修改。</em></p>
+<p><em>请为我的控制器配置 CORS（跨域资源共享）策略，允许所有源访问。</em></p>
 </span></li>
 </ul>
 
-</li>
-</ul>
-<div style="margin-bottom: 1rem"></div>
-</li>
-<li><h4 id="Axios%E6%8B%A6%E6%88%AA%E5%99%A8">Axios拦截器<a class="anchor-link" href="#Axios%E6%8B%A6%E6%88%AA%E5%99%A8">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/axios-interceptor.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
-<div style="margin-bottom: 1rem"></div>
-</li>
-<li><h4 id="%E6%B7%BB%E5%8A%A0Axios%E9%85%8D%E7%BD%AE">添加Axios配置<a class="anchor-link" href="#%E6%B7%BB%E5%8A%A0Axios%E9%85%8D%E7%BD%AE">¶</a></h4><ul>
-<li><p>在Cursor的Chat(Agent模式)中输入:</p>
-<ul>
-<li><span style="color: orange">
-<p><em>请为我的项目添加Axios库，并添加相应的配置，API的基地址为localhost，端口号为9002，请保持我的代码简单，暂时不要添加拦截器，只要先添加上地址和端口的配置就行了。</em></p>
-</span></li>
-</ul>
-
-</li>
-</ul>
-<div style="margin-bottom: 1rem"></div>
-</li>
-<li><h4 id="%E6%B7%BB%E5%8A%A0%E6%8B%89%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E7%B1%BB%EF%BC%88Class%EF%BC%89%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%88Method%EF%BC%89">添加拉取数据的类（Class）和方法（Method）<a class="anchor-link" href="#%E6%B7%BB%E5%8A%A0%E6%8B%89%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E7%B1%BB%EF%BC%88Class%EF%BC%89%E5%92%8C%E6%96%B9%E6%B3%95%EF%BC%88Method%EF%BC%89">¶</a></h4><ul>
-<li><p>在Cursor的Chat(Agent模式)中输入:</p>
-<ul>
-<li><span style="color: orange">
-<p><em>请为我创建ApiClient类，添加getSocialInsurance方法，使用axios从/socialInsuranceQuery端点获取社会保险数据，方式为Get，请求参数为月薪（monthlySalary）、年龄（age），共两个。返回JSON格式的SocialInsuranceDTO，格式如下：</em></p>
-<pre style="color: orange; font-style: italic;">
-{  
-  employeeCost: {  
-    healthCostWithNoCare: 30000,  
-    careCost: 15000,  
-    pension: 50000  
-  },  
-  employerCost: {  
-    healthCostWithNoCare: 30000,  
-    careCost: 15000,  
-    pension: 50000  
-  }  
-}
-</pre>
-<p><em>其中，employee是员工需要支付的金额，employer是公司需要支付的金额，healthCostWithNoCare是保险金额，careCost是介护保险金额，pension是厚生年金金额。</em></p>
-<p><em>注意，只需要添加类和方法，不要修改目前已有的功能。</em>
-</p></span>
-</li>
-</ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
 </ul>
 </li>
-<li><h4 id="%E6%9B%B4%E6%96%B0%E8%AE%A1%E7%AE%97%E9%80%BB%E8%BE%91">更新计算逻辑<a class="anchor-link" href="#%E6%9B%B4%E6%96%B0%E8%AE%A1%E7%AE%97%E9%80%BB%E8%BE%91">¶</a></h4><ul>
-<li><p>在Cursor的Chat(Agent模式)中输入:</p>
-<ul>
-<li><span style="color: orange">
-<p><em>请修改目前计算社会保险的方法，不再使用本地的数据和算法进行计算，而是将月薪和年龄通过刚刚创建的ApiClient.getSocialInsurance()方法从后端获取。确认数据无误后，请帮我清除已经不再需要的文件，如insuranceData.ts。</em></p>
-</span></li>
-</ul>
-
+<li><h4 id="Docker%E9%95%9C%E5%83%8F">Docker镜像<a class="anchor-link" href="#Docker%E9%95%9C%E5%83%8F">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/docker.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
 </li>
-</ul>
-</li>
+<li><h4 id="%E6%B7%BB%E5%8A%A0%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC">添加镜像构建脚本<a class="anchor-link" href="#%E6%B7%BB%E5%8A%A0%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC">¶</a></h4><ul>
+<li>将Docker构建脚本 <a href="../References/backend/Dockerfile.prod" target="_blank">Dockerfile.prod</a> 复制到目录 {<strong>classpath</strong>} 下。</li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
-<ul>
-<li><h4 id="%E5%9C%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1">在开发环境下运行服务<a class="anchor-link" href="#%E5%9C%A8%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83%E4%B8%8B%E8%BF%90%E8%A1%8C%E6%9C%8D%E5%8A%A1">¶</a></h4><ul>
-<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并按下回车:</p>
+</li>
+<li><h4 id="%E6%B7%BB%E5%8A%A0Spring%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">添加Spring生产环境配置文件<a class="anchor-link" href="#%E6%B7%BB%E5%8A%A0Spring%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6">¶</a></h4><ul>
+<li>将配置文件 <a href="../References/backend/application-prod.properties" target="_blank">application-prod.propertied</a> 复制到目录 {<strong>classpath</strong>}/src/main/resources 下。</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%88%B0Github">提交代码到Github<a class="anchor-link" href="#%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%88%B0Github">¶</a></h4><ul>
+<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里分别执行以下Git命令:</p>
 <ul>
 <li><p><em><span style="color: orange">
-npm install
+git add .
 </span></em></p>
 </li>
 <li><p><em><span style="color: orange">
-npm run dev
+git commit -m "添加发布所需的配置"
 </span></em></p>
+</li>
+<li><p><em><span style="color: orange">
+git push
+</span></em></p>
+</li>
+</ul>
+<p>※ 挑战：在Cursor中，可以通过<img alt="No description has been provided for this image" src="../../Assets/git.png" style="height: 31px; vertical-align: middle;"/>按钮切换到git管理页面，以可视化方式进行git操作，请尝试一下。</p>
+<div style="margin-bottom: 1rem"></div>
+</li>
+</ul>
+</li>
+<li><h4 id="%E8%BF%90%E8%A1%8C%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88Runtime-Environment-Variables%EF%BC%89">运行时环境变量（Runtime Environment Variables）<a class="anchor-link" href="#%E8%BF%90%E8%A1%8C%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88Runtime-Environment-Variables%EF%BC%89">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/runtime-env.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E5%9C%A8Cloud-Run%E4%B8%8A%E9%83%A8%E7%BD%B2%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">在Cloud Run上部署后端服务<a class="anchor-link" href="#%E5%9C%A8Cloud-Run%E4%B8%8A%E9%83%A8%E7%BD%B2%E5%90%8E%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/run/services">Cloud Run服务页面</a>。</p>
+</li>
+<li><p>② 点击 <span class="button-div">部署容器</span> 按钮。</p>
+</li>
+<li><p>③ 在「创建服务」页面中依次配置以下参数:</p>
+<ul>
+<li><p><span class="radio-div">从代码库（源代码或函数）持续部署</span> -&gt; 点击 <span class="button-div">设置Cloud Build</span></p>
+<ul>
+<li><p>「源代码库 -&gt; 代码库」-&gt; {<strong>选择后端服务代码库</strong>}</p>
+</li>
+<li><p>点击 <span class="button-div">下一步</span></p>
+</li>
+<li><p>「构建配置 -&gt; 构建类型 -&gt; <span class="radio-div">Dockerfile</span> -&gt; 来源位置」 -&gt; <span style="color: orange">_/Dockerfile.prod</span></p>
+</li>
+<li><p>点击 <span class="button-div">保存</span></p>
+</li>
+</ul>
+</li>
+<li><p>「“服务”名称」 -&gt;  <span style="color: orange"><em>social-insurance-backend-service</em></span></p>
+</li>
+<li><p>「区域」 -&gt; {<strong>选择离你的用户最近的区域</strong>}</p>
+</li>
+<li><p>「身份验证」 -&gt; <span class="radio-div">允许公开访问</span></p>
+</li>
+<li><p>「容器、卷、网络、安全性 -&gt; 容器」</p>
+<ul>
+<li><p>「变量和密钥」 -&gt; <span class="button-div">添加变量</span> -&gt; {<strong>添加以下变量</strong>}</p>
+<ul>
+<li><p><span style="color: orange"><em>DB_URL</em></span> = <span style="color: orange"><em>r2dbc:postgresql://{<strong>数据库专用IP</strong>}:5432/social_insurance</em></span></p>
+</li>
+<li><p><span style="color: orange"><em>FLYWAY_URL</em></span> = <span style="color: orange"><em>jdbc:postgresql://{<strong>数据库专用IP</strong>}:5432/social_insurance</em></span></p>
+</li>
+<li><p><span style="color: orange"><em>DB_USER</em></span> = <span style="color: orange"><em>db_user</em></span></p>
+</li>
+<li><p><span style="color: orange"><em>DB_PASSWORD</em></span> = {<strong>db_user的密码</strong>}</p>
+</li>
+</ul>
+</li>
+</ul>
+<p>※ 提示： 这里的{<strong>数据库专用IP</strong>}是指上一小节「配置内部专用网络 -&gt; ④」中保存下来的数据库内部IP地址。</p>
+</li>
+<li><p>「容器、卷、网络、安全性 -&gt; 网络」</p>
+<ul>
+<li><p><span class="check-div">连接到VPC以获取出站流量</span></p>
+</li>
+<li><p><span class="radio-div">使用无服务器VPC访问通道连接器</span> -&gt; {<strong>选择上一小节创建的VPC连接器</strong>}</p>
+</li>
+<li><p><span class="radio-div">将所有流量路由到VPC</span></p>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>④ 点击 <span class="button-div">创建</span> ，等待服务创建完成。</p>
+</li>
+<li><p>⑤ 在「服务详情」页面中找到「网址」并将其复制下来，这是<span class="terminal-span">后端服务的URL</span>，接下来在部署<span class="terminal-span">前端服务</span>时会用到。</p>
 </li>
 </ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
-<li><p>如果运行成功，将看到类似这样的信息：</p>
-<div class="terminal-div">
-<div>VITE v6.4.1  ready in 458 ms</div>
-<div>➜  Local:   http://localhost:3000/</div>
-<div>➜  Network: http://192.168.1.24:3000/</div>
-<div>➜  Network: http://10.211.55.2:3000/</div>
-<div>➜  press h + enter to show help</div>
-</div>
+<li><h4 id="%E4%BD%BF%E7%94%A8Httpie%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">使用Httpie进行测试<a class="anchor-link" href="#%E4%BD%BF%E7%94%A8Httpie%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">¶</a></h4><ul>
+<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里输入并执行:</p>
+<ul>
+<li><em><span style="color: orange">
+http {<strong>后端服务的URL</strong>}/socialInsuranceQuery monthlySalary==300000 age==45
+</span></em></li>
+</ul>
 <div style="margin-bottom: 1rem; margin-left: 1rem; padding-top: 1rem">
-<p>※ 挑战：<span class="terminal-span">NPM</span>是一个独立的命令行工具，如果你的系统中还没有安装它，请搜索相关资料并完成安装。</p>
+<div style="margin-bottom: 1rem"></div>
 </div></li>
 </ul>
 </li>
-</ul>
-<div style="margin-bottom: 1rem"></div>
-<ul>
-<li><h4 id="%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%EF%BC%88Decoupled-Architecture%EF%BC%89%E4%B8%8E%E7%BA%AF%E5%89%8D%E7%AB%AF%EF%BC%88Client-Side-Only-Architecture%EF%BC%89%E7%9A%84%E5%AF%B9%E6%AF%94">前后端分离（Decoupled Architecture）与纯前端（Client-Side Only Architecture）的对比<a class="anchor-link" href="#%E5%89%8D%E5%90%8E%E7%AB%AF%E5%88%86%E7%A6%BB%EF%BC%88Decoupled-Architecture%EF%BC%89%E4%B8%8E%E7%BA%AF%E5%89%8D%E7%AB%AF%EF%BC%88Client-Side-Only-Architecture%EF%BC%89%E7%9A%84%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/frontend-backend.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
-<div style="margin-bottom: 1rem"></div>
-</li>
-<li><h4 id="%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E9%87%8C%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">在浏览器里进行测试<a class="anchor-link" href="#%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E9%87%8C%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">¶</a></h4><ul>
-<li><p>打开<span class="terminal-span">Chrome浏览器</span>，并输入以下网址:</p>
-<ul>
-<li><p><em><span style="color: orange">
-<a href="http://localhost:3000">http://localhost:3000</a>
-</span></em></p>
-</li>
-<li><p>我们将再次看到在第1章中所制作的原型界面，但是现在，它会从后端服务中获取数据，可以通过浏览器的<span class="terminal-span">DevTools-&gt;Network</span>页面来观察数据获取的过程。</p>
-</li>
-</ul>
-<div style="margin-bottom: 1rem"></div>
-</li>
-</ul>
-</li>
 <li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
-<li><p><span class="terminal-span">面向对象编程</span>（OOP）是最重要的编程思想和范式之一，类（Class）、对象（Object）、继承（Inherited）、多态（Polymorphism）、方法（Method）都是它的核心概念，深入理解面向对象的软件开发方法，是对一名软件工程师的基本要求。</p>
+<li><p><span class="terminal-span">环境变量</span>（Environment Variables）是指操作系统层面的全局变量，可以被传递给运行在该系统上的应用程序，在云原生（Cloud Native）架构中，环境变量不仅仅是参数，而是「配置管理」的标准接口。12-Factor App 方法论中明确定义：“在环境中存储配置”，为<span class="terminal-span">不可变基础设施</span>（Immutable Infrastructure）提供可变的注入，实现了构建产物与部署环境的物理隔离。</p>
 </li>
-<li><p><span class="terminal-span">Axios</span> 是一个基于 <span class="terminal-span">Promise</span> 的 HTTP 客户端，用于在浏览器和 Node.js 中发送网络请求。它能够自动转换 JSON 数据，提供更好的错误处理机制，同时还实现了<span class="terminal-span">拦截器</span>，这些特性极大提高了前端开发的效率。</p>
+<li><p><span class="terminal-span">同源策略</span>（Same-Origin Policy, SOP） 是现代浏览器最核心的基石级安全机制，它强制规定：来自一个“源”（即协议、域名、端口必须完全相同）的脚本，在默认情况下严禁访问或操作另一个“源”的资源。例如：来自www.a.com的页面中的脚本，禁止访问www.b.com的服务器接口，同源策略有效隔离了恶意网站对合法网站数据的窃取。</p>
 </li>
-<li><p><span class="terminal-span">DevTools</span>（Developer Tools）是直接内置在现代网络浏览器（如 Chrome, Firefox, Edge, Safari）中的一套强大的 Web 开发和调试工具集。在浏览器中按下<span class="terminal-span">Fn+F12</span>(MacOS)或<span class="terminal-span">F12</span>(Windows)即可调出DevTools的界面。</p>
+<li><p><span class="terminal-span">跨域资源共享</span>（CORS） 是一种基于 HTTP 头的浏览器安全机制，它允许服务器明确声明“哪些外部网站有权访问我的资源”，从而有条件地打破浏览器默认的严格同源策略（Same-Origin Policy）限制。。</p>
 </li>
 </ul>
 </li>
@@ -7910,78 +8228,186 @@ npm run dev
         border-radius: 0.25rem; 
         margin-left: 1rem; 
     }
+    .button-div {
+        padding: 0.25rem; 
+        border-radius: 0.25rem; 
+        border: 1px solid;
+    }
+    .radio-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+
+    .radio-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 50%;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        box-shadow: inset 0 0 0 3px white; 
+    }
+    .check-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .check-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
+    .uncheck-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .uncheck-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+            
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
 </style>
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5(async)">理解异步(async)<a class="anchor-link" href="#%E7%90%86%E8%A7%A3%E5%BC%82%E6%AD%A5(async)">¶</a></h2></div>
+<h2 id="%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">部署前端服务<a class="anchor-link" href="#%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h2></div>
 <ul>
-<li><h4 id="%E5%8A%A0%E5%85%A5%E6%8B%89%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BB%A3%E7%A0%81">加入拉取数据的代码<a class="anchor-link" href="#%E5%8A%A0%E5%85%A5%E6%8B%89%E5%8F%96%E6%95%B0%E6%8D%AE%E7%9A%84%E4%BB%A3%E7%A0%81">¶</a></h4><ul>
-<li><p>在PageLayout.tsx的添加如下代码，观察执行顺序:</p>
+<li><h4 id="%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93%EF%BC%88SSR%EF%BC%89">服务端渲染（SSR）<a class="anchor-link" href="#%E6%9C%8D%E5%8A%A1%E7%AB%AF%E6%B8%B2%E6%9F%93%EF%BC%88SSR%EF%BC%89">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/ssr.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B8%B2%E6%9F%93%EF%BC%88CSR%EF%BC%89">客户端渲染（CSR）<a class="anchor-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%B8%B2%E6%9F%93%EF%BC%88CSR%EF%BC%89">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/csr.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E5%85%8B%E9%9A%86%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%A0%81">克隆前端服务代码<a class="anchor-link" href="#%E5%85%8B%E9%9A%86%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1%E4%BB%A3%E7%A0%81">¶</a></h4><ul>
+<li><p>① 在Cursor首页按下<span class="terminal-span">Shift + Command + P</span>(MacOS)或<span class="terminal-span">Shift + Ctrl + P </span>(Windows)</p>
+</li>
+<li><p>② 输入 <em><span style="color: orange">git: clone</span></em></p>
+</li>
+<li><p>③ 输入{<strong>第3章构建的前端服务代码库地址</strong>}（Github代码库URL）。</p>
+</li>
+<li><p>④ 打开克隆下来的代码。</p>
+<div style="margin-bottom: 1rem"></div>
+</li>
+</ul>
+</li>
+<li><h4 id="%E6%B7%BB%E5%8A%A0%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC">添加镜像构建脚本<a class="anchor-link" href="#%E6%B7%BB%E5%8A%A0%E9%95%9C%E5%83%8F%E6%9E%84%E5%BB%BA%E8%84%9A%E6%9C%AC">¶</a></h4><ul>
+<li>将Docker构建脚本 <a href="../References/frontend/Dockerfile.prod" target="_blank">Dockerfile.prod</a> 复制到目录 {<strong>classpath</strong>} 下。</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E6%9E%84%E5%BB%BA%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88Buildtime-Environment-Variables%EF%BC%89">构建时环境变量（Buildtime Environment Variables）<a class="anchor-link" href="#%E6%9E%84%E5%BB%BA%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88Buildtime-Environment-Variables%EF%BC%89">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/build-time-env.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E6%B7%BB%E5%8A%A0%E6%9E%84%E5%BB%BA%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88Build-time-environment-variables%EF%BC%89">添加构建时环境变量（Build-time environment variables）<a class="anchor-link" href="#%E6%B7%BB%E5%8A%A0%E6%9E%84%E5%BB%BA%E6%97%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F%EF%BC%88Build-time-environment-variables%EF%BC%89">¶</a></h4><ul>
+<li><p>在Cursor的Chat(Agent模式)中输入:</p>
 <ul>
 <li><span style="color: orange">
-<pre style="color: orange; font-style: italic;">
-    console.log('start');
-    const apiClient = new ApiClient();
-    apiClient.getSocialInsurance(550000, 30)
-      .then((result: SocialInsuranceDTO) =&gt; {
-        console.log(result);
-       });
-    console.log('end');
-</pre>
+<p><em>请为我添加构建时环境变量process.env.NEXT_PUBLIC_ENV，当NEXT_PUBLIC_ENV=prod时，apiClient的基地址为{<strong>后端服务的URL</strong>}，当NEXT_PUBLIC_ENV=test时，基地址为<a href="http://localhost%EF%BC%8C%E5%BD%93NEXT_PUBLIC_ENV=dev%E6%97%B6%EF%BC%8C%E5%9F%BA%E5%9C%B0%E5%9D%80%E4%B8%BAhttp://localhost:9002%E3%80%82%E5%BD%93%E4%BD%BF%E7%94%A8npm">http://localhost，当NEXT_PUBLIC_ENV=dev时，基地址为http://localhost:9002。当使用npm</a> run dev启动时，默认为dev环境。</em></p>
 </span></li>
 </ul>
 
-<p>※ 这段代码仅用于测试学习，没有实际意义，完成后要记得删除。</p>
-<div style="margin-bottom: 1rem"></div>
 </li>
 </ul>
-</li>
-<li><h4 id="%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">异步处理流程<a class="anchor-link" href="#%E5%BC%82%E6%AD%A5%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/frontend-async.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<p>※ 提示： 这里的{<strong>后端服务的URL</strong>}是指上一小节「在Cloud Run上部署后端服务 -&gt; ⑥」中复制出来的后端服务地址。</p>
 <div style="margin-bottom: 1rem"></div>
 </li>
-</ul>
-<div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81(State)">理解状态(State)<a class="anchor-link" href="#%E7%90%86%E8%A7%A3%E7%8A%B6%E6%80%81(State)">¶</a></h2></div>
+<li><h4 id="%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%88%B0Github">提交代码到Github<a class="anchor-link" href="#%E6%8F%90%E4%BA%A4%E4%BB%A3%E7%A0%81%E5%88%B0Github">¶</a></h4><ul>
+<li><p>在Cursor的<span class="terminal-span">终端</span>窗口里分别执行以下Git命令:</p>
 <ul>
-<li><h4 id="%E5%AF%B9%E6%AF%94%E6%99%AE%E9%80%9A%E5%8F%98%E9%87%8F%E4%B8%8E%E7%8A%B6%E6%80%81%E7%9A%84%E5%8C%BA%E5%88%AB">对比普通变量与状态的区别<a class="anchor-link" href="#%E5%AF%B9%E6%AF%94%E6%99%AE%E9%80%9A%E5%8F%98%E9%87%8F%E4%B8%8E%E7%8A%B6%E6%80%81%E7%9A%84%E5%8C%BA%E5%88%AB">¶</a></h4><ul>
-<li><p>将CalculatorForm.tsx中的点击响应函数handleSubmit变更为如下，观察效果是否与预期一致:</p>
+<li><p><em><span style="color: orange">
+git add .
+</span></em></p>
+</li>
+<li><p><em><span style="color: orange">
+git commit -m "添加发布所需的配置"
+</span></em></p>
+</li>
+<li><p><em><span style="color: orange">
+git push
+</span></em></p>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+</ul>
+</li>
+<li><h4 id="%E5%9C%A8Cloud-Run%E4%B8%8A%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">在Cloud Run上部署前端服务<a class="anchor-link" href="#%E5%9C%A8Cloud-Run%E4%B8%8A%E9%83%A8%E7%BD%B2%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/run/services">Cloud Run服务页面</a>。</p>
+</li>
+<li><p>② 点击 <span class="button-div">部署容器</span> 按钮。</p>
 <ul>
-<li><span style="color: orange">
-<pre style="color: orange; font-style: italic;">
-  var i = 0;
-  const handleSubmit = (e: React.FormEvent) =&gt; {
-      e.preventDefault();
-      dispatch(calculateResult({ salaryStr: salary, birthDateStr: birthDate }));
-      i++;            
-      console.log('i: ',i);
-  };
-</pre>
-</span></li>
-</ul>
-
-<p>※ 这段代码仅用于测试学习，没有实际意义，完成后要记得删除。</p>
-<div style="margin-bottom: 1rem"></div>
-</li>
-<li><p>将CalculatorForm.tsx中的点击响应函数handleSubmit变更为如下，观察效果是否与预期一致:</p>
+<li><p>③ 在「创建服务」页面中依次配置以下参数:</p>
 <ul>
-<li><span style="color: orange">
-<pre style="color: orange; font-style: italic;">
-  const [i, setI] = useState(0);        
-  const handleSubmit = (e: React.FormEvent) =&gt; {
-      e.preventDefault();
-      dispatch(calculateResult({ salaryStr: salary, birthDateStr: birthDate }));
-      setI(i + 1);
-      console.log('i: ',i);
-  };
-</pre>
-</span></li>
+<li><p><span class="radio-div">从代码库（源代码或函数）持续部署</span> -&gt; 点击 <span class="button-div">设置Cloud Build</span></p>
+<ul>
+<li><p>「源代码库 -&gt; 代码库」-&gt; {<strong>选择前端服务代码库</strong>}</p>
+</li>
+<li><p>点击 <span class="button-div">下一步</span></p>
+</li>
+<li><p>「构建配置 -&gt; 构建类型 -&gt; <span class="radio-div">Dockerfile</span> -&gt; 来源位置」 -&gt; <span style="color: orange">_/Dockerfile.prod</span></p>
+</li>
+<li><p>点击 <span class="button-div">保存</span></p>
+</li>
 </ul>
-
-<p>※ 这段代码仅用于测试学习，没有实际意义，完成后要记得删除。</p>
+</li>
+<li><p>「“服务”名称」 -&gt;  <span style="color: orange"><em>social-insurance-frontend-service</em></span></p>
+</li>
+<li><p>「区域」 -&gt; {<strong>选择离你的用户最近的区域</strong>}</p>
+</li>
+<li><p>「身份验证」 -&gt; <span class="radio-div">允许公开访问</span></p>
+</li>
+</ul>
+</li>
+<li><p>④ 点击 <span class="button-div">创建</span> ，等待服务创建完成。</p>
+</li>
+<li><p>⑤ 在「服务详情」页面中找到「网址」并将其复制下来，这是<span class="terminal-span">前端服务的URL</span>，用户将通过这个URL访问我们的服务。</p>
+</li>
+</ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
 </ul>
 </li>
-<li><h4 id="%E7%8A%B6%E6%80%81%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">状态处理流程<a class="anchor-link" href="#%E7%8A%B6%E6%80%81%E5%A4%84%E7%90%86%E6%B5%81%E7%A8%8B">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/react-state.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
+<li><h4 id="%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E9%87%8C%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">在浏览器里进行测试<a class="anchor-link" href="#%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E9%87%8C%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">¶</a></h4><ul>
+<li><p>打开<span class="terminal-span">Chrome浏览器</span>，并输入以下网址:</p>
+<ul>
+<li><em><span style="color: orange">
+{<strong>前端服务的URL</strong>}
+</span></em></li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+</ul>
+</li>
+<li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
+<li><p><span class="terminal-span">构建时环境变量</span>（Build-time environment variables）是指在编译、打包过程中被读取的环境变量，而<span class="terminal-span">运行时环境变量</span>（Run-time environment variables）是指在应用程序在实际启动运行时被读取的环境变量。这是非常核心的 DevOps 概念，尤其是在使用 Docker 容器（如 Cloud Run）和现代前端框架（如 Next.js）时，理解两者的区别至关重要。</p>
+</li>
+<li><p><span class="terminal-span">DevOps</span> 是一组文化理念、实践方法和工具的集合，旨在缩短系统开发周期，同时提供高质量的持续交付。可以简单理解为<span class="terminal-span">谁开发（Dev）谁运维（Ops）</span>，开发人员应事先而不是事后提供充分的运维支持。DevOps是一种文化，强调自动化、可观测性和可持续性。</p>
+</li>
+<li><p>顾名思义，<span class="terminal-span">服务端渲染</span>（SSR）模式是在指服务器上完成页面渲染的模式，而<span class="terminal-span">客户端渲染</span>（CSR）模式是指在客户端设备上完成页面渲染的模式，两者在用户体验、SEO优化、资源占用方式等方面有着显著差异，在现代前端架构的最佳实践中，经常根据实际需求，将两种模式组合在一起使用，形成<span class="terminal-span">混合渲染模式</span>。</p>
+</li>
+</ul>
 <div style="margin-bottom: 1rem"></div>
 </li>
 </ul>
@@ -7989,7 +8415,7 @@ npm run dev
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=17a2eb63">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=a7c93eb6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8011,44 +8437,183 @@ npm run dev
         border-radius: 0.25rem; 
         margin-left: 1rem; 
     }
+    .button-div {
+        padding: 0.25rem; 
+        border-radius: 0.25rem; 
+        border: 1px solid;
+    }
+    .radio-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+
+    .radio-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 50%;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        box-shadow: inset 0 0 0 3px white; 
+    }
+    .check-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .check-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+        
+        background-color: #007bff; 
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E");
+    
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
+    .uncheck-div {
+        display: inline-flex;   
+        align-items: center;
+        gap: 0.3rem;             
+        vertical-align: -0.3rem;
+    }
+    .uncheck-div::before {
+        content: '';               
+        display: block;
+        width: 1rem;             
+        height: 1rem;
+        border-radius: 3px;      
+        border: 1px solid #007bff; 
+            
+        background-size: 70%;      
+        background-position: center;
+        background-repeat: no-repeat;    
+    }
 </style>
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E8%BF%AD%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">迭代前端服务<a class="anchor-link" href="#%E8%BF%AD%E4%BB%A3%E5%89%8D%E7%AB%AF%E6%9C%8D%E5%8A%A1">¶</a></h2></div>
+<h2 id="%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2">优化部署<a class="anchor-link" href="#%E4%BC%98%E5%8C%96%E9%83%A8%E7%BD%B2">¶</a></h2></div>
 <ul>
-<li><h4 id="%E4%BC%A0%E7%BB%9F%E8%B7%AF%E7%94%B1%EF%BC%88Classic-Router%EF%BC%89%E4%B8%8E%E7%8E%B0%E4%BB%A3%E8%B7%AF%E7%94%B1%EF%BC%88App-Router%EF%BC%89%E7%9A%84%E5%AF%B9%E6%AF%94">传统路由（Classic Router）与现代路由（App Router）的对比<a class="anchor-link" href="#%E4%BC%A0%E7%BB%9F%E8%B7%AF%E7%94%B1%EF%BC%88Classic-Router%EF%BC%89%E4%B8%8E%E7%8E%B0%E4%BB%A3%E8%B7%AF%E7%94%B1%EF%BC%88App-Router%EF%BC%89%E7%9A%84%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/classic-app-router.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
-<div style="margin-bottom: 1rem"></div>
+<li><h4 id="%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E7%9A%84Secret">创建数据库密码的Secret<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E7%9A%84Secret">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/security">Cloud Security页面</a>。</p>
 </li>
-<li><h4 id="React%E8%B7%AF%E7%94%B1%EF%BC%88React-Router%EF%BC%89%E4%B8%8ENext.js%E8%B7%AF%E7%94%B1%EF%BC%88Next.js-Router%EF%BC%89%E7%9A%84%E5%AF%B9%E6%AF%94">React路由（React Router）与Next.js路由（Next.js Router）的对比<a class="anchor-link" href="#React%E8%B7%AF%E7%94%B1%EF%BC%88React-Router%EF%BC%89%E4%B8%8ENext.js%E8%B7%AF%E7%94%B1%EF%BC%88Next.js-Router%EF%BC%89%E7%9A%84%E5%AF%B9%E6%AF%94">¶</a></h4> <img alt="Social Insurance Query System" src="../../Assets/react-next-router.jpg" style="max-width: 80%; margin-left: 25px; padding: 50px; background-color: white"/>
-<div style="margin-bottom: 1rem"></div>
+<li><p>② 依次点击「Secret Manager」 -&gt; <span class="button-div">创建密钥</span> 按钮。</p>
 </li>
-<li><h4 id="%E9%87%8D%E6%9E%84%EF%BC%88Refactoring%EF%BC%89">重构（Refactoring）<a class="anchor-link" href="#%E9%87%8D%E6%9E%84%EF%BC%88Refactoring%EF%BC%89">¶</a></h4><ul>
-<li><p>在Cursor的Chat(Agent模式)中输入:</p>
+<li><p>③ 在「创建密文」页面中依次配置以下参数:</p>
 <ul>
-<li><span style="color: orange">
-<p><em>请重构我的项目，使用Next.js路由方式来管理页面。同时，清除无用的数据和代码，将重复的组件抽象出来，使得项目结构更清晰。特别注意next.config.js的模块格式问题，要与package.json中的type保持一致。</em></p>
-</span></li>
+<li><p>「名称」 -&gt; <span style="color: orange"><em>DB_PASSWORD</em></span></p>
+</li>
+<li><p>「Secret值」 -&gt; {<strong>输入数据库用户DB_USER的密码</strong>}</p>
+</li>
 </ul>
+</li>
+<li><p>④ 点击 <span class="button-div">创建密钥</span></p>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%B8%90%E5%8F%B7">创建服务帐号<a class="anchor-link" href="#%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E5%B8%90%E5%8F%B7">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/iam-admin">Cloud IAM和管理页面</a>。</p>
+</li>
+<li><p>② 依次点击「服务帐号」 -&gt; <span class="button-div">创建服务帐号</span></p>
+</li>
+<li><p>③ 在「创建服务帐号」页面中依次配置以下参数:</p>
+<ul>
+<li>「服务帐号名称」 -&gt; <span style="color: orange"><em>social-insurance-backend-service-account</em></span></li>
+</ul>
+</li>
+<li><p>④ 点击 <span class="button-div">创建并继续</span></p>
+</li>
+<li><p>⑤ 在「权限」页面填加 <span class="terminal-span">Secret Manager Secret Accessor</span> 角色。</p>
+</li>
+<li><p>⑥ 点击 <span class="button-div">完成</span> 按钮。</p>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E7%94%A8Secret%E6%9B%BF%E6%8D%A2%E6%98%8E%E6%96%87%E5%AF%86%E7%A0%81">用Secret替换明文密码<a class="anchor-link" href="#%E7%94%A8Secret%E6%9B%BF%E6%8D%A2%E6%98%8E%E6%96%87%E5%AF%86%E7%A0%81">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/run/services">Cloud Run服务页面</a>。</p>
+</li>
+<li><p>② 点击「服务」 -&gt; {<strong>选择刚刚创建的后端服务</strong>} -&gt; 点击 <span class="button-div">修改和部署新的修订版本</span></p>
+</li>
+<li><p>③ 在「容器 -&gt; 变量和密钥」页面中依次配置以下参数:</p>
+<ul>
+<li><p>删除环境变量「DB_PASSWORD」。</p>
+</li>
+<li><p>点击 <span class="button-div">引用密钥</span></p>
+</li>
+<li><p>「名称」 -&gt; <span style="color: orange"><em>DB_PASSWORD</em></span></p>
+</li>
+<li><p>「Secret」 -&gt; <span style="color: orange"><em>DB_PASSWORD</em></span></p>
+</li>
+<li><p>「版本」 -&gt; latest</p>
+</li>
+</ul>
+</li>
+<li><p>④ 点击 <span class="button-div">部署</span></p>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+<li><h4 id="%E4%BD%BF%E7%94%A8%E6%9C%80%E5%B0%8F%E6%9D%83%E9%99%90%E6%9C%8D%E5%8A%A1%E5%B8%90%E5%8F%B7">使用最小权限服务帐号<a class="anchor-link" href="#%E4%BD%BF%E7%94%A8%E6%9C%80%E5%B0%8F%E6%9D%83%E9%99%90%E6%9C%8D%E5%8A%A1%E5%B8%90%E5%8F%B7">¶</a></h4><ul>
+<li><p>① 导航到<a href="https://console.cloud.google.com/run/services">Cloud Run服务页面</a>。</p>
+</li>
+<li><p>② ② 点击「服务」 -&gt; {<strong>选择刚刚创建的后端服务</strong>} -&gt; 点击 <span class="button-div">修改和部署新的修订版本</span></p>
+</li>
+<li><p>③ 在「安全」页面中依次配置以下参数:</p>
+<ul>
+<li>「服务帐号」 -&gt; {<strong>选择刚刚创建的服务帐号</strong>}</li>
+</ul>
+</li>
+<li><p>④ 点击 <span class="button-div">部署</span></p>
+</li>
+</ul>
+<div style="margin-bottom: 1rem"></div>
+</li>
+</ul>
+<!-- * #### 禁止外部流量访问
 
-</li>
-</ul>
-<div style="margin-bottom: 1rem"></div>
-</li>
-<li><h4 id="%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E9%87%8C%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">在浏览器里进行测试<a class="anchor-link" href="#%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E9%87%8C%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95">¶</a></h4><ul>
-<li><p>打开<span class="terminal-span">Chrome浏览器</span>，并输入以下网址:</p>
+    * ① 导航到[Cloud Run服务页面](https://console.cloud.google.com/run/services)。
+  
+    * ② 点击「服务」 -> {**选择刚刚创建的后端服务**}。
+  
+    * ③ 在「服务详情」页面中依次配置以下参数: 
+
+        * 「网络 -> Ingress」 -> <span class="radio-div">内部</span>
+
+    * ④ 点击 <span class="button-div">保存</span> 
+    
+    <div style="margin-bottom: 1rem"></div>
+
+* #### 将前端服务的流量导入VPC
+
+    * ① 导航到[Cloud Run服务页面](https://console.cloud.google.com/run/services)。
+  
+    * ② 点击「服务」 -> {**选择刚刚创建的前端服务**} -> 点击 <span class="button-div">修改和部署新的修订版本</span>
+  
+    * ③ 在「网络」页面中依次配置以下参数: 
+
+        * <span class="radio-div">连接到VPC以获取出站流量</span> 
+        
+        * <span class="radio-div">使用无服务器VPC访问通道连接器</span> -> {**选择刚刚创建的VPC连接器**}
+
+        * <span class="radio-div">将所有流量路由到VPC</span>
+
+    * ④ 点击 <span class="button-div">部署</span> 
+    
+    <div style="margin-bottom: 1rem"></div> -->
 <ul>
-<li><em><span style="color: orange">
-<a href="http://localhost:3000">http://localhost:3000</a>
-</span></em></li>
-</ul>
-<div style="margin-bottom: 1rem"></div>
-</li>
-</ul>
-</li>
 <li><h4 id="%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">扩展知识<a class="anchor-link" href="#%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86">¶</a></h4><ul>
-<li><p>在现代开发语境下，“使用 <span class="terminal-span">ES 语法</span>”，通常特指 ES6 (ECMAScript 2015) 及之后版本引入的现代 JavaScript 语法特性。它代表了一种更简洁、更模块化、更强大的代码书写方式，与老旧的 JavaScript (ES5) 形成了鲜明对比。学习 React，就必须掌握 <span class="terminal-span">ES6+ 的语法风格</span>，因为 React 的官方文档和社区代码几乎全都是基于这些新特性编写的。</p>
-</li>
-<li><p><span class="terminal-span">Next.js 的路由方式</span>（Next.js Routing）是该框架最核心的特性之一。简单来说，意味着你不需要像在普通 React (使用 react-router-dom) 中那样写一大堆配置文件来定义“哪个URL 对应哪个组件”。你只需要在特定的文件夹里创建文件，Next.js 就会自动根据文件名生成对应的 URL。</p>
-</li>
+<li>在部署时应遵循<span class="terminal-span">最小权限原则</span>，只授予用户或程序完成其当前任务所必须的最小权限。</li>
 </ul>
 </li>
 </ul>
@@ -8064,11 +8629,15 @@ npm run dev
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E4%BD%9C%E4%B8%9A">作业<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A">¶</a></h2></div>
 <ul>
-<li><p>在第1章构建的原型基础上实现前后端分离架构的前端部分。</p>
+<li><p>将社会保险、雇佣保险、厚生年金的计算拆分成三个独立后端服务，并分别部署到Google Cloud Run上。</p>
 </li>
-<li><p>加入计划厚生年金和源泉税金额的功能。</p>
+<li><p>将对应的前端服务部署到Google Cloud Run上。</p>
 </li>
 <li><p>通过浏览器对算法进行验证，并与<a href="https://revenue.asatex.jp/calculator">Asatex工资计算器</a>的计算结果进行比对。</p>
+</li>
+<li><p>密码应避免使用明文。</p>
+</li>
+<li><p>应遵循最小权限原则。</p>
 </li>
 </ul>
 </div>
@@ -8083,38 +8652,10 @@ npm run dev
 <div style="border-left: 5px solid #007bff; padding-left: 15px;">
 <h2 id="%E4%BD%9C%E4%B8%9A%E4%BA%A4%E4%BB%98%E6%96%B9%E5%BC%8F">作业交付方式<a class="anchor-link" href="#%E4%BD%9C%E4%B8%9A%E4%BA%A4%E4%BB%98%E6%96%B9%E5%BC%8F">¶</a></h2></div>
 <ul>
-<li>Github代码库URL</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=153c0797">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E5%B7%A5%E5%85%B7%E6%B8%85%E5%8D%95">工具清单<a class="anchor-link" href="#%E5%B7%A5%E5%85%B7%E6%B8%85%E5%8D%95">¶</a></h2></div>
-<ul>
-<li><p>Cursor - <a href="https://cursor.com/">https://www.cursor.com</a></p>
+<li><p>前端服务的Cloud Run App Url</p>
 </li>
-<li><p>Npm - <a href="https://www.npmjs.com">https://www.npmjs.com</a></p>
+<li><p>三个后端服务的Cloud Run App Url</p>
 </li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=01397983">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<div style="border-left: 5px solid #007bff; padding-left: 15px;">
-<h2 id="%E6%8F%92%E4%BB%B6%E6%B8%85%E5%8D%95(Cursor)">插件清单(Cursor)<a class="anchor-link" href="#%E6%8F%92%E4%BB%B6%E6%B8%85%E5%8D%95(Cursor)">¶</a></h2></div>
-<ul>
-<li>TypeScript (Native Preview) - <a href="https://github.com/microsoft/typescript-go">https://github.com/microsoft/typescript-go</a></li>
 </ul>
 </div>
 </div>
